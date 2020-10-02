@@ -9,6 +9,7 @@
         <title>CS460 Project</title>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+        <script type="text/javascript" src="http://codecogs.unisa.ac.za/latexit.js"></script>
         <link rel="stylesheet" href="CSS/normalize.css">
         <link rel="stylesheet" href="CSS/style.css">
     </head>
@@ -18,10 +19,47 @@
                 <h1>Introducing Higher Moment Terms to Heavy-Ball Optimisation</h1>
             </div>
         </nav>
-        <div class="content-area">
-            <div class="wrapper">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi placeat voluptates mollitia dicta numquam harum vero facere minus. Architecto non nemo neque odio voluptatum fuga nesciunt eaque eius eligendi similique iste quisquam amet, illo aperiam necessitatibus corrupti vero. Accusamus, reprehenderit rerum voluptatibus dolores maxime consequatur quibusdam accusantium molestias consequuntur laboriosam in architecto, fugiat doloremque nemo dicta quae! Molestias commodi natus eum ex. Provident, repellat adipisci voluptate itaque nemo debitis a quod enim error beatae soluta numquam, porro voluptas explicabo omnis fuga similique. Ducimus ad unde id libero eligendi ea aut accusantium, dolores ab quasi natus illum vel sequi quis qui corrupti, possimus nam aspernatur! Repellat, provident, possimus quis maxime neque odit reiciendis accusantium numquam reprehenderit ratione nostrum molestias hic aperiam suscipit? Totam, ipsa. Enim explicabo blanditiis beatae id vero sapiente quisquam architecto voluptatum. Dolores saepe exercitationem debitis assumenda repudiandae aspernatur explicabo ipsum praesentium. Culpa recusandae, inventore aliquid expedita molestiae corrupti repudiandae ipsa itaque aperiam ad? Voluptatem, placeat et quae est nobis omnis id corrupti amet nostrum deserunt molestias cupiditate suscipit fugit pariatur dolorum quod eveniet, perspiciatis fuga. Neque at temporibus delectus. Eaque magnam quibusdam modi natus reiciendis quis enim, voluptatem voluptas necessitatibus maxime eveniet iusto vero sapiente tempora repudiandae aut soluta in tempore voluptatibus amet consequatur aliquid architecto eum quidem. Aperiam explicabo, deserunt repellendus officia veritatis ducimus sunt doloribus quibusdam voluptatem neque. Minus eligendi voluptatum aliquam omnis odit esse perferendis consequatur iure excepturi, sapiente rem eos voluptatibus ab reiciendis optio temporibus enim totam cum soluta expedita eaque mollitia? Iure expedita itaque sit necessitatibus suscipit quas, ad sequi. Eum facere corrupti fugiat placeat accusamus cum similique. Laudantium delectus non repudiandae iste unde pariatur iusto ut sequi dolore voluptates magni nesciunt officiis nihil quaerat, ipsum numquam suscipit in quo officia, nobis eos aperiam? Placeat consequuntur omnis quidem ea doloribus deserunt quis necessitatibus sapiente culpa magni animi suscipit molestias reiciendis odio vitae atque asperiores, voluptas maiores nostrum rem, dolore consequatur recusandae aperiam. Laborum quam iusto in debitis minima rem quisquam fuga odio consectetur eum repellat autem, illum ut. Temporibus laudantium necessitatibus maxime unde amet? Aut numquam cumque corrupti, necessitatibus voluptatibus ipsam quaerat. Nobis error doloribus eius eum totam libero cupiditate excepturi vitae recusandae autem unde, in, aliquam quod sit quibusdam consectetur et placeat esse alias. Voluptas eius quos soluta distinctio molestias sunt saepe rerum vel hic! Quidem dolorum nam nesciunt ipsam laborum, commodi possimus, vero reiciendis optio placeat suscipit architecto voluptate consectetur corrupti aperiam enim odit vel cumque sapiente voluptatibus explicabo repellendus harum fugit. Beatae, dolorum! Possimus mollitia laudantium numquam veritatis at voluptate quae eligendi. Dignissimos sit hic cupiditate eos minus quidem, labore quisquam quasi doloribus at ex modi praesentium cum? Aspernatur, consequuntur provident cupiditate deserunt eum id molestiae voluptas. Eum deleniti reiciendis quam vitae cupiditate ut dignissimos quod qui minus, est nulla iusto earum. Id expedita necessitatibus repellendus quod velit ipsa ipsam quas perspiciatis. Repudiandae dolor excepturi praesentium rem officia suscipit sint doloremque tempore, eum deserunt molestiae numquam, tempora laboriosam, enim modi natus doloribus error quo soluta placeat. Ad repellat placeat minus?</p>
-                <img src="Images/comparision.gif">
+        <div class="bg1">
+            <div class="contentareatop">
+                <div class="wrapper">
+                    <h2>
+                        Why do we need optimisation methods?
+                    </h2>
+                    <p>
+                        Machine learning and Artificial Intelligence have become so popular that one can see its applications in every field one can think of. How much more efficient and effective these algorithms can be, are crucial questions one would like to address. To give an idea of how complex even the simplest of problems can be, let us look at some numbers. The number of parameters in simple and good neural networks tackling the MNIST Database using a Convolutional Neural Network (CNN) are in millions. Even typical Neural Networks (NNs) tackling even simpler problems would have the number of parameters in orders of 10^4. The gradient descent explanations one usually encounters online come with a parabola or a contour representing the loss function with respect to 1 and 2 parameters respectively. We see that, as the complexity of the problem increases, the number of calculations required in terms of finding gradients at each point also increases. So instead of looking at how the curve is at each point blind folded, there are varients to gradient descent and optimisation techniques to tackle such problems. Keep in mind that we use the term optimisation, we do not refer to optimisations like parameter initialisation (like weights in NNs and CNNs), but we refer to optimisation methods in gradient descent algorithms. Learning rate is an important hyper-parameter in every algorithm, setting it too low would mean it would take too long for the algorithm to converge to a solution, and setting it too high would result in fluctuations and diverging solutions. Optimisation methods are used to find a good solution, fast, along with a good probability to converge. Data is used more effectively and such algorithms has saved us a great deal of time and computational resources. The animation below shows the difference between some optimisation methods and how the fast (and accurately) they converge to the minima compared to the others.
+                    </p>
+                    <figure>
+                        <img src="Images/comparision.gif" alt="Optimisation" style="width:500px"> 
+                        <figcaption>
+                            Fig.1 - SGD Optimisation in Loss Contour (Source: <a href="https://ruder.io/optimizing-gradient-descent/" target="blank">An overview of gradient descent optimization algorithms</a>)
+                        </figcaption>
+                    </figure>
+                    <p>
+                        As explained in CITE 2, besides the learning rate, how to avoid the objective function being trapped in infinite numbers of the local minimum is a common challenge. The slope of a saddle point is positive in one direction and negative in another direction, and gradient values in all directions are zero. It is an important problem to escape from these points and algorithms like Nesterov Accelerated Gradient Descent (NAG) come into picture. Although higher order methods are more suited, but will introduce them later on.
+                    </p>
+                    <p>
+                        Now that we have looked at why studies in optimisation is important, let us get ourselves introduced to current optimisation methods before stating our problem.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="bg2">
+            <div class="contentarea">
+                <div class="wrapper">
+                    <h2>Current Optimisation Methods</h2>
+                    <p>Popular optimization methods can be divided into three categories: first-order optimization methods (represented by the widely used stochastic gradient methods); high-order optimization methods; and heuristic derivative-free optimization methods.</p>
+                    <p>Just like we discussed in class, there can be situations where we reach a saddle point in the loss function, there are high-order optimisation algorithms to overcome this problem which involves complex calculations (like inverse of large matrices). As explained in CITE 2, compared to first-order optimization methods, high-order methods converge at a faster speed in which the curvature information makes the search direction more effective. High-order optimizations attract widespread attention but face more challenges. The difficulty in high-order methods lies in the computational process which costly and thus rarely used for solving large machine learning problems. Although the convergence of the algorithm can be guaranteed, the computational process is costly and thus rarely used for solving large machine learning problems. For example, computing and storing the full Hessian matrix takes O(n^2) memory, which is infeasible for high-dimensional functions such as the loss functions of neural networks CITE 3. We will not get into high-order optimisation, but what we look to study is the effect of adding additional higher "moment" terms to the heavy-ball optimisation. We use "higher moment terms" to avoid confusion with the already-in-use "high-order methods". We will also be diverting from the main problem if one gets into derivative-free optimization methods also. So, let us look into first-order optimisation methods and where does our project come into picture among these methods.</p>
+                    <p>First Order methods involve methods like Gradient Descent (Normal, stochastic, batch/mini-batch), Nesterov Accelerated Gradient Descent, AdaGrad, and so on. Gradient Descent is eplained in more detail in the Additional Resources section. More detailed explanations of most first (and high) order methods can be read at CITE 4 AND 5. In NAG, the update is given by:</p>
+                    <pre lang="latex">
+                        x^{k+1}=x^{k} - a \nabla L\left(x^{k}+b\left(x^{k}-x^{k-1}\right)\right)+b\left(x^{k}-x^{k-1}\right)
+                    </pre>
+                    <p>where x is the paramter, k is the iteration number, L is the loss function, a is the learning rate and b is another hyperparameter.</p>
+                    <p>The method we look to focus on is the Polyak's Heavy-Ball Optimisation Method, whose parameter updates is given by:</p>
+                    <pre lang="latex">
+                        x^{k+1}=x^{k}-a \nabla L\left(x^{k}\right)+b\left(x^{k}-x^{k-1}\right)
+                    </pre>
+                    <p>If observed carefully one can see that NAG and HBO are not governed by the same equations, but yet there are references that call either of the algorithms as "Momentum" optimisation. To avoid such confusion, we will refer to them with their original names.</p>
+                 </div>
             </div>
         </div>
         <div class="details">
@@ -30,30 +68,32 @@
                     <h2>
                         Guided by:
                     </h2>
-                </div>  
+                </div>  <!--.heading div-->
                 <div class="photo">
                     <a href="https://www.niser.ac.in/users/smishra" target="blank"><img src="Images/mishra.jpg"></a>
                     <a href="https://www.niser.ac.in/users/smishra" target="blank"><p>Subhankar Mishra</p></a>
-                </div>
-            </div><!--.wrapper div-->
-        </div>
-        
-        <div class="details">
-            <div class="wrapper">
-                <div class="heading">
-                    <h2>
-                        Contributors:
-                    </h2>
-                </div>  
-                <div class="photo">
-                    <img src="Images/Danush.jpeg">
-                    <p>Danush Shekar</p>
-                </div>
-                <div class="photo">
-                    <img src="Images/Danush.jpeg">
-                    <p>Harisankar K R</p>
-                </div><!--.widget div-->
+                </div><!--.photo div-->
             </div><!--.wrapper div-->
         </div><!--.details div-->
+
+        <div class="bg4">
+            <div class="details">
+                <div class="wrapper">
+                    <div class="heading">
+                        <h2>
+                            Contributors:
+                        </h2>
+                    </div>  
+                    <div class="photo">
+                        <img src="Images/Danush.jpeg">
+                        <p>Danush Shekar</p>
+                    </div>
+                    <div class="photo">
+                        <img src="Images/Danush.jpeg">
+                        <p>Harisankar K R</p>
+                    </div><!--.widget div-->
+                </div><!--.wrapper div-->
+            </div><!--.details div-->
+        </div>
     </body>
 </html>

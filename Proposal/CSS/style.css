@@ -29,6 +29,21 @@ a{
 	color: none;
 }
 
+pre .latex {
+	padding: 10px;
+	border:2px solid black;
+	font-weight: 700;
+	font-size: larger;
+	display: block;
+	margin: 0 auto 0 auto;
+}
+
+figcaption {
+	font-style: italic;
+	padding: 2px;
+	text-align: center;
+  }
+
 
 
 /*----------------------------------------------------------------------------- 
@@ -52,9 +67,16 @@ nav{
 	color: rgb(240, 240, 240);
 }
 
-.content-area{
+.contentareatop{
 	width: 70%;
-	top: 100px;
+	top: 50px;
+	padding-bottom: 50px;
+	position: relative;
+	margin: 0 auto 0 auto;
+}
+
+.contentarea{
+	width: 70%;
 	position: relative;
 	margin: 0 auto 0 auto;
 }
@@ -64,17 +86,31 @@ nav{
 	width: 90%;
 }
 
+.bg1{
+	padding-top: 50px;
+	padding-bottom: 50px;
+	background: white;
+}
+
+.bg2{
+	padding-top: 50px;
+	padding-bottom: 50px;
+	background: #f5f4f4;
+}
+
+.bg4{
+	background: #f5f4f4;
+}
+
+
 .details{
-	top: 100px;
 	margin: 0 auto 0 auto;
 	position: relative;
-	width: 70%;
-	background: #FFF;
+	width: 70%;;
 	padding: 25px;
 	border-top: 3px solid black;
 	display: flex;
 }
-
 
 .photo{
 	padding-left: 50px;
@@ -90,6 +126,11 @@ nav{
 	font-family: 'Quicksand', sans-serif;
 }
 
+figure img{
+	margin: 0 auto 0 auto;
+	display: block;
+	padding: 10px;
+}
 
 .details p{
 	font-size: 20px;
