@@ -38,6 +38,15 @@ pre .latex {
 	margin: 0 auto 0 auto;
 }
 
+pre2 .latex{
+	margin-bottom: -7px;
+}
+
+pre3 .latex{
+	margin-bottom: -3px;
+}
+
+
 figcaption {
 	font-style: italic;
 	padding: 2px;
@@ -67,7 +76,7 @@ nav{
 	color: rgb(240, 240, 240);
 }
 
-.contentareatop{
+.content-area-top{
 	width: 70%;
 	top: 50px;
 	padding-bottom: 50px;
@@ -75,7 +84,7 @@ nav{
 	margin: 0 auto 0 auto;
 }
 
-.contentarea{
+.content-area{
 	width: 70%;
 	position: relative;
 	margin: 0 auto 0 auto;
@@ -95,11 +104,15 @@ nav{
 .bg2{
 	padding-top: 50px;
 	padding-bottom: 50px;
-	background: #f5f4f4;
+	background: #eeeeee;
+}
+
+.bg3{
+
 }
 
 .bg4{
-	background: #f5f4f4;
+	background: #eeeeee;
 }
 
 
@@ -143,9 +156,9 @@ figure img{
 }
 
 .details img {
-	width: 100px;
+	width: 150px;
 	border-radius: 300px;
-	margin-left: 20px;
+	
 }
 
 
