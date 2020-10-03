@@ -39,7 +39,7 @@
                         Instead of looking at how the curve is at each point blind, there are a variety of gradient descent and optimisation techniques we can use to tackle such problems. Keep in mind that when we use the term optimisation, we do not refer to optimisations like parameter initialisation (like weights in NNs and CNNs), but we refer to optimisation methods in gradient descent algorithms. Learning rate is an important hyper-parameter in every algorithm, setting it too low would mean it would take too long for the algorithm to converge to a solution, and setting it too high would result in fluctuations and diverging solutions. Optimisation methods are used to find a good solution, fast, along with a good probability to converge. Data is used more effectively and such algorithms save us a significant amount of time and computational resources. The animation shown below shows the difference between some popular optimisation methods and how fast (and accurately) they converge to the minima compared to the others.
                     </p>
                     <figure>
-                        <img src="Images/comparision.gif" alt="Optimisation" style="width:500px"> 
+                        <img src="Images/comparision.gif" alt="Optimisation" style="width:500px;"> 
                         <figcaption>
                             Fig.2 - SGD Optimisation in Loss Contour (Source: <a href="https://ruder.io/optimizing-gradient-descent/" target="blank">An overview of gradient descent optimization algorithms</a>)
                         </figcaption>
@@ -199,7 +199,7 @@
                         Note: The gradient only tells us the direction which has the steepest decrease of the loss function, but it does not tell us how far along the direction the lowest point is located. Choosing the step size, also known as the learning rate, is an important hyper-parameter setting in training a neural network. Choosing a small step size will lead to consistent but slow progress, whereas choosing a large step size may cause us to overstep as depicted in the illustration given below.
                     </p>
                     <figure>
-                        <img src="Images/gd_overstepping.jpg" alt="Overstepping" style="width:300px"> 
+                        <img src="Images/gd_overstepping.jpg" alt="Overstepping" style="width:300px; border-radius: 20px;"> 
                         <figcaption>
                             Fig.3 - Visualizing the effect of step size. We start at some particular spot W and evaluate the negative of the gradient (the white arrow) which tells us the direction of the steepest decrease in the loss function (Source: <a href="https://cs231n.github.io/optimization-1/" target="blank">Optimization, CS231n</a>)
                         </figcaption>
