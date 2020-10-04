@@ -17,17 +17,17 @@
 	<body>
         <nav>
             <div class="topic">
-                <h1>Introducing Terms of Higher Moments in Heavy-Ball Optimisation</h1>
+                <h1>Introducing Terms of Higher Moments in Heavy-Ball Optimization</h1>
             </div><!--.topic div-->
         </nav>
         <div class="bg1">
             <div class="content-area-top">
                 <div class="wrapper">
                     <h2>
-                        Why Do We Need Optimisation Methods?
+                        Why Do We Need Optimization Methods?
                     </h2>
                     <p>
-                        Machine learning and Artificial Intelligence have become so popular that one can see its applications in almost every field one can think of. How to make these algorithms much more efficient and effective are crucial questions we would like to address. To give an idea of how complex even the simplest of problems can be, let us look at some numbers. The number of parameters in simple and good neural networks tackling the MNIST Database using a Convolutional Neural Network (CNN) are in millions. Even typical Neural Networks (NNs) tackling even simpler problems would have its number of parameters in orders of tens of thousands [<a href="#References">4</a>]. The gradient descent explanations one usually encounters online come with a parabola (Fig.1) or a contour representing the loss function with respect to 1 and 2 parameters respectively. We see that, as the complexity of the problem increases, the number of calculations required in terms of finding gradients at each point also increases. 
+                        Machine learning and Artificial Intelligence have become so popular that one can see its applications in almost every field one can think of. How to make these algorithms much more efficient and effective are crucial questions we would like to address. To give an idea of how complex even the simplest of problems can be, let us look at some numbers. The number of parameters in simple and good neural networks tackling the MNIST Database using a Convolutional Neural Network (CNN) are in millions. Even typical Neural Networks (NNs) tackling even simpler problems would have its number of parameters in orders of tens of thousands [<a href="#References">4</a>]. The gradient descent explanations one usually encounters online come with a parabola (Fig.1) or a contour representing the loss function with respect to 1 and 2 parameters respectively. We see that as the complexity of the problem increases, the number of calculations required (finding gradients) at each point also increases.
                     </p>
                     <figure>
                         <img src="Images/learning-rate.png" alt="Gradient" style="width: 500px;">
@@ -36,19 +36,19 @@
                         </figcaption>
                     </figure>
                     <p>
-                        Instead of looking at how the curve is at each point blind, there are a variety of gradient descent and optimisation techniques we can use to tackle such problems. Keep in mind that when we use the term optimisation, we do not refer to optimisations like parameter initialisation (like weights in NNs and CNNs), but we refer to optimisation methods in gradient descent algorithms. Learning rate is an important hyper-parameter in every algorithm, setting it too low would mean it would take too long for the algorithm to converge to a solution, and setting it too high would result in fluctuations and diverging solutions. Optimisation methods are used to find a good solution, fast, along with a good probability to converge. Data is used more effectively and such algorithms save us a significant amount of time and computational resources. The animation shown below shows the difference between some popular optimisation methods and how fast (and accurately) they converge to the minima compared to the others.
+                        Instead of looking at how the curve is at each point blind, there are a variety of gradient descent and optimization techniques we can use to tackle such problems. Keep in mind that when we use the term optimization, we do not refer to optimizations like parameter initialisation (like weights in NNs and CNNs), but we refer to optimization methods in gradient descent algorithms. Learning rate is an important hyper-parameter for every algorithm and setting it to a value too low would mean it would take too long for the algorithm to converge to a solution. Setting it to a value too high would result in fluctuations and diverging solutions. Optimization methods are used to find a good solution, fast, along with a good probability that it will converge. With optimization, data is used more effectively and these algorithms help us save a significant amount of time and computational resources. The animation shown below shows the difference between some popular optimization methods and how fast (and accurately) they converge to the minima compared to the others.
                     </p>
                     <figure>
-                        <img src="Images/comparision.gif" alt="Optimisation" style="width:500px;"> 
+                        <img src="Images/comparision.gif" alt="Optimization" style="width:500px;"> 
                         <figcaption>
-                            Fig.2 - SGD Optimisation in Loss Contour (Source: <a href="https://ruder.io/optimizing-gradient-descent/" target="blank">An overview of gradient descent optimization algorithms</a>)
+                            Fig.2 - SGD Optimization in Loss Contour (Source: <a href="https://ruder.io/optimizing-gradient-descent/" target="blank">An overview of gradient descent optimization algorithms</a>)
                         </figcaption>
                     </figure>
                     <p>
-                        As explained in [<a href="#References">8</a>], besides the learning rate, how to avoid the objective function being trapped in infinite numbers of the local minimum is a common challenge. The slope of a saddle point is positive in one direction and negative in another direction, and gradient values in all directions are zero. It is an important problem to escape from these points and algorithms like Nesterov Accelerated Gradient Descent (NAG) come into picture. Although higher order methods are more suited, we will see why they aren't used very often when we introduce them later on.
+                        As explained in [<a href="#References">8</a>], besides the learning rate, how to avoid the objective function being trapped in infinite numbers of the local minimum is a common challenge. The slope of a saddle point is positive in one direction and negative in another direction, and gradient values in all directions are zero. It is an important problem to escape from these points and algorithms like Nesterov Accelerated Gradient Descent (NAG) come into the picture. Although higher-order methods are more suited, we will see why they aren't used very often when we introduce them later on.
                     </p>
                     <p>
-                        Now that we have seen why studies in optimisation is important, let us get ourselves introduced to current optimisation methods before stating our problem.
+                        Now that we have seen why studies in optimization are important, let us get ourselves introduced to current optimization methods before stating our problem.
                     </p>
                 </div><!--.wrapper div-->
             </div><!--.content-area div-->
@@ -57,31 +57,31 @@
             <div class="content-area">
                 <div class="wrapper">
                     <h2>
-                        Current Optimisation Methods
+                        Current Optimization Methods
                     </h2>
                     <p>
                         Popular optimization methods can be divided into three categories: first-order optimization methods (represented by the widely used stochastic gradient methods); high-order optimization methods; and heuristic derivative-free optimization methods.
                     </p>
                     <p>
-                        Just like we discussed in class, there can be situations where we reach a saddle point in the loss function, there are high-order optimisation algorithms to overcome this problem which involves complex calculations (like inverse of large matrices). As explained in [<a href="#References">8</a>], compared to first-order optimization methods, high-order methods converge at a faster speed in which the curvature information makes the search direction more effective. High-order optimisations attract widespread attention but also face more challenges. Although the convergence of the algorithm can be guaranteed, the computational process is costly and thus rarely used for solving large machine learning problems. For example, computing and storing the full Hessian matrix takes O(n^2) memory, which is infeasible for high-dimensional functions such as the loss functions of neural networks [<a href="#References">6</a>]. We will not get into high-order optimisation, but what we seek to study is the effect of adding additional higher "moment" terms to the heavy-ball optimisation. We use "higher moment terms" to avoid confusion with the already-in-use "high-order methods". We will also be diverting from the main problem if one gets into derivative-free optimization methods also. So, let us look into first-order optimisation methods and find out where our project come into picture among these methods.
+                        Just like we discussed in class, there can be situations where we reach a saddle point in the loss function, there are high-order optimization algorithms to overcome this problem which involves complex calculations (like the inverse of large matrices). As explained in [<a href="#References">8</a>], compared to first-order optimization methods, high-order methods converge at a faster speed in which the curvature information makes the search direction more effective. High-order optimizations attract widespread attention but also face more challenges. Although the convergence of the algorithm can be guaranteed, the computational process is costly and thus rarely used for solving large machine learning problems. For example, computing and storing the full Hessian matrix takes O(n<sup>2</sup>) memory, which is infeasible for high-dimensional functions such as the loss functions of neural networks [<a href="#References">6</a>]. We will not get into high-order optimization, but what we seek to study is the effect of adding additional higher "moment" terms to the heavy-ball optimization. We use "higher moment terms" to avoid confusion with the already-in-use "high-order methods". We will also be diverting from the main problem if one gets into derivative-free optimization methods also. So, let us look into first-order optimization methods and find out where our project comes into the picture among these methods.
                     </p>
                     <p>
-                        First Order methods involve methods like Gradient Descent (Normal, stochastic, batch/mini-batch), Nesterov Accelerated Gradient Descent, AdaGrad, and so on. Gradient Descent is eplained in more detail in the Additional Resources section. More detailed explanations of most first (and high) order methods can be read at [<a href="#References">1</a>, <a href="#References">5</a>, <a href="#References">9</a>]. In NAG, the update is given by:
+                        First order methods involve methods like Gradient Descent (Normal, stochastic, batch/mini-batch), Nesterov Accelerated Gradient Descent, AdaGrad, and so on. Gradient Descent is explained in more detail in the Additional Resources section. More detailed review of first-order (and high-order) methods can be read at [<a href="#References">1</a>, <a href="#References">5</a>, <a href="#References">9</a>]. In NAG, the update is given by:
                     </p>
                     <pre lang="latex">
                         x^{k+1}=x^{k} - a \nabla L\left(x^{k}+b\left(x^{k}-x^{k-1}\right)\right)+b\left(x^{k}-x^{k-1}\right)
                     </pre>
                     <p>
-                        where x is the paramter, k is the iteration number, L is the loss function, a is the learning rate and b is another hyperparameter.
+                        where x is the parameter, k is the iteration number, L is the loss function, a is the learning rate and b is another hyperparameter.
                     </p>
                     <p>
-                        The method we look to focus on is the Polyak's Heavy-Ball Optimisation Method, whose parameter updates is given by:
+                        The method we look to focus on is the Polyak's Heavy-Ball Optimization Method, whose parameter updates is given by:
                     </p>
                     <pre lang="latex">
                         x^{k+1}=x^{k}-a \nabla L\left(x^{k}\right)+b\left(x^{k}-x^{k-1}\right)
                     </pre>
                     <p>
-                        If observed carefully, one can see that NAG and HBO are not governed by the same equations, yet there are references that call both of the algorithms as "Momentum" optimisation. To avoid confusion, we will refer to them with their original names.
+                        If observed closely, one can see that NAG and HBO are not governed by the same equations,  yet some sources call either of the algorithms as "Momentum" optimization. To avoid confusion, we will refer to them with their original names.
                     </p>
                  </div><!--.wrapper div-->
             </div><!--.content-area div-->
@@ -93,7 +93,7 @@
                         Problem Statement and Objectives
                     </h2>
                     <p>
-                        We see that there are literature that delve into high-order methods which involve taking higher order derivatinves of the loss function to get more information of the curvature. But when one looks at the parameter-update equation of the HBO, one can realise that there could have been additional higher order terms of the parameter differences (momentum terms). For instance, we had <pre2 lang="latex">b\left(x^{k}-x^{k-1}\right)</pre2>, but why not <pre2 lang="latex">b\left((x^{k})^3-(x^{k-1})^3\right)</pre2>, and terms with 5th power and so on (Why are we not considering even powers?). So this thought got us searching for the algorithms that does this, but according to [<a href="#References">8</a>], up until 2019 there have been no literature on the same. So our project would inovolve looking into such higher moment terms and look at how they affect the training process in terms of rate of convergence, probability of convergence, etc.
+                        We see that there is literature that delves into high-order methods which involve taking higher-order derivatives of the loss function to get more information of the curvature. But when one looks at the parameter-update equation of the HBO, one can realise that there could have been additional higher-order terms of the parameter differences (momentum terms). For instance, we had <pre2 lang="latex">b\left(x^{k}-x^{k-1}\right)</pre2>, but why not <pre2 lang="latex">b\left((x^{k})^3-(x^{k-1})^3\right)</pre2>, and terms with 5<sup>th</sup> power and so on (Why are we not considering even powers?). So this thought got us searching for the algorithms that do this, but according to [<a href="#References">8</a>], up until 2019, there has been no literature on the same. So our project would involve looking into such higher moment terms and look at how they affect the training process in terms of rate of convergence, probability of convergence, etc.
                     </p>
                     <p>
                         We look forward to studying the effects of including a set of terms to the HBO:
@@ -102,16 +102,16 @@
                         b\left((x^{k})^n-(x^{k-1})^n\right)
                     </pre>
                     <p>
-                        where n is an odd integer. If time permits, we would also want to look at addition of terms like:
+                        where n is an odd integer. If time permits, we would also want to look at the addition of terms like:
                     </p>          
                     <pre lang="latex">
                         b\left(\left(x^{k}-x^{k-1}\right)\right)^n
                     </pre>
                     <p>
-                        where n is an odd integer. One also has to keep in mind that studying the effect of addition of the above terms would involve deeper ablative tests to truly show that the positive/negative results obtained are due to addition of these terms only. For example, intuitively one can realise that learning rates that work for HBO might not necessarily work for addition of 3rd moment terms, because every iteration would go faster when going down the slope, and towards the minima can off-shoot and cause fluctuations.
+                        where n is an odd integer. One also has to keep in mind that studying the effect of the addition of the above terms would involve deeper ablative tests to truly show that the positive/negative results obtained are due to addition of these terms only. For example, intuitively one can realise that learning rates that work for HBO might not necessarily work for the addition of 3<sup>rd</sup>-moment terms, because every iteration would go faster when going down the slope, and towards the minima can off-shoot and cause fluctuations.
                     </p>
                     <p>
-                        Initially , our project would also involve going through literature to select out problems and architectures used in previous publications in the area. With respect to experimentation, we look forward to make this project an exhaustive one by focussing on one or more benchmark problems (like MNIST, to compare with existing optimisation methods), include ablative tests on hyper-parameters (like learning rate, a, b) and parameters, and thus compare how our proposed change fares with existing methods. At the end, we also hope to get a animation like Fig.2 to provide for a more visual end result of our project.
+                        Initially, our project would also involve going through literature to select out problems and architectures used in previous publications in the area. With respect to experimentation, we look forward to making this project an exhaustive one by focussing on one or more benchmark problems (like MNIST, to compare with existing optimization methods), include ablative tests on hyper-parameters (like learning rate, a, b) and parameters, and thus compare how our proposed change fares with existing methods. In the end, we also hope to get an animation like Fig.2 to provide for a more visual end result of our project.
                     </p>
                 </div><!--.wrapper div-->
             </div><!--.content-area div-->
@@ -123,22 +123,27 @@
                         Scope, Feasibility and Work Plan
                     </h2>
                     <p>
-                        We will take up the benchmark problems people use to fare their optimisation methods against others, but keeping in mind the computational resources we have access to, we might have restrict our extent of testing to selected problems. Other than this, all tools needed to run the experiments are present and accessible (all that is needed is a computer with Python libraries and Google Colab access). We have not yet gone into the specifics, but an initially worry is that we hope they have not conducted their experiments for too many iterations and very large architectures/models. This stems from the fact that we have access to only a basic computer (8-core i7 8th Gen 2.6GHz, 8GB RAM and 1TB HDD) or a Colab alternative (2-core Xeon 2.2GHz, 13GB RAM, 33GB HDD and a max run-time of 12hrs only).
+                        We will take up the benchmark problems people use to fare their optimization methods against others, but keeping in mind the computational resources we have access to, we might have to restrict our extent of testing to selected problems. Other than this, all tools needed to run the experiments are present and accessible (all that is needed is a computer with Python libraries and Google Colab access). We have not yet gone into the specifics, but we hope they have not conducted their experiments for too many iterations and large architectures/models. This stems from the fact that we only have access to a basic computer (8-core i7 8th Gen 2.6GHz, 8GB RAM and 1TB HDD) or a Colab alternative (2-core Xeon 2.2GHz, 13GB RAM, 33GB HDD and a max run-time of 12hrs only).
                     </p>
                     <p>
-                        Empirical tests will be done to compare HerBO with other methods. For now, we will look into performance based on terms of both the number of iterations and wall-clock time, if any other means of comparision comes up, we can perform the same if time permits. As done in [<a href="#References">3</a>], we look to building NNs and study performance in the digit recognition problem (Using MNIST data). The same tests using a CNN would also be done. In our experiments, model choices for experiments will be made that are consistent with previous publications in the area. The architecture for these models are:
+                        Empirical tests will be done to compare HerBO with other methods. For now, we will look into performance based on terms of both the number of iterations and wall-clock time, but if any other means of comparison comes up, we can perform the same if time permits. As done in [<a href="#References">3</a>], we look to building NNs and study performance in the digit recognition problem (Using MNIST data). The same tests using CNNs would also be done. In our experiments, model choices for experiments will be made that are consistent with previous publications in the area. The architecture for these models are:
                         <ul>
                             <li>
-                                A Neural network model with two fully connected hidden layers with 1000 hidden units each and ReLU activation are used for this experiment with mini-batch size of 128.
+                                A Neural network model with two fully connected hidden layers with 1000 hidden units each and ReLU activation are used for this experiment with mini-batches of size 128.
                             </li>
                             <li>
-                                Our CNN architecture has three alternating stages of 5x5 convolution filters and 3x3 max pooling with stride of 2 that are followed by a fully connected layer of 1000 rectified linear hidden units (ReLU’s). The input image are pre-processed by whitening, and dropout noise is applied to the input layer and fully connected layer. The minibatch size is also set to 128 similar to previous experiments.
+                                Our CNN architecture has three alternating stages of 5x5 convolution filters and 3x3 max pooling with a stride of 2 that are followed by a fully connected layer of 1000 rectified linear hidden units (ReLU’s). The input images are pre-processed by whitening, and dropout noise is applied to the input layer and fully connected layer. The minibatch size is also set to 128 similar to previous experiments.
                             </li>
                         </ul>
                     </p>
                     <p>
-                        We currently have plans of executing this project in 3 phases. The first phase involves looking at as much as literature we can to gather information regarding what problems they looked and and what architecture they built to solve those problem to test how good their method was. The second phase involves coding the architecture (which mostly would be NNs and CNNs), and most of this is already done (courtesy of <a href="https://github.com/CNN-NISER" target="blank">collaborative work</a> with Dr. Subhankar Mishra, Sahel M Iqbal and Chinmay Routray). This phase would also involve bringing in those additional terms and making sure the everything works. The third and final phase would involve conducting experiments and some ablative tests if possible. The details of third phase would be more clear after we are done with literature after short listing the list of experiments hat are feasible for us, given the time and resources.
+                        We currently have plans for executing this project in 3 phases. The first phase involves looking at as much as literature we can to gather information regarding what problems they looked at and what architecture they built to solve those problems to test how good their method was. The second phase involves coding the architecture (which mostly would be NNs and CNNs), and most of this is already done (courtesy of <a href="https://github.com/CNN-NISER" target="blank">collaborative work</a> with Dr Subhankar Mishra, Sahel M Iqbal and Chinmay Routray). This phase would also involve bringing in those additional terms and conduct the required experiments. The third phase would involve conducting some ablative tests. The details of the third phase would be more clear after we are done with literature after shortlisting the list of experiments that are feasible for us, given the time and resources.
                     </p>
+                    <figure>
+                        <img src="Images/work-plan.png" alt="Work Plan" style="width: 700px;">
+                        <figcaption>
+                        </figcaption>
+                    </figure>
                  </div><!--.wrapper div-->
             </div><!--.content-area div-->
         </div><!--.bg2 div-->
@@ -149,7 +154,7 @@
                         Is the Problem Worth Looking At?
                     </h2>
                     <p>
-                        To be really honest, we do not really know what the outcome of this project would be, but we are hopeful for some positive results, if not, then we would know one direction where we need not search. That said, we need to take a step back and ask ourselves why are we doing this? Why do we need to look for different methods? Yes, these methods would help make our programs faster, saving hours and even days of time and a lot more computational resources. But that truly is secondary, what we look to gaining from this project is to be able to understand are deep questions like how do these algorithms work? Why some work and why some don't? We hope to work with numerous algorithms, test them, play with them and thus at the end of it, also share our experience and knowledge we learnt with the class.
+                        We have limited knowledge of what the outcome of this project would come out to be, but we are hopeful for some positive results, if not, then we would know one direction where we need not search. That said, we need to take a step back and ask ourselves why are we doing this? Why do we need to look for different methods? Yes, these methods would help make our programs faster, saving hours and even days, and a lot more computational resources. But that truly is secondary, what we look to gaining from this project is to be able to understand are deep questions like how do these algorithms work? Why some work and why some don't? We hope to work with numerous algorithms, test them, play with them and thus at the end of it, also share our experience and knowledge we learnt with the class.
                     </p>
                 </div><!--.wrapper div-->
             </div><!--.content-area div-->
@@ -161,7 +166,7 @@
                         Primer
                     </h2>
                     <p>
-                        We must have a basic understanding of loss functions, basic optimisation methods (like gradient descent) before jumping into what our project is about and how it works.
+                        We must have a basic understanding of loss functions, basic optimization methods (like gradient descent) before jumping into what our project is about and how it works.
                     </p>
                     <h3>
                         Score and Loss Functions
@@ -173,13 +178,13 @@
                         Similarly, the loss function is used to represent the agreements or disagreements between the predicted output scores and the ground truth labels, i.e. if the predicted scores deviate too much from the truth labels then the loss function will output a very large number. Or in layman terms, the loss function quantifies our unhappiness with predictions on the training set.
                     </p>
                     <p>
-                        The value of parameters W that produced predictions for examples <pre3 lang="latex">\{x_i\}</pre3> consistent with their ground truth labels <pre3 lang="latex">\{y_i\}</pre3> will lead to minimum loss L; this process of finding the most suitable set of parameters W that will provide us with the minimum loss is called Optimisation.
+                        The value of parameters W that produced predictions for examples <pre3 lang="latex">\{x_i\}</pre3> consistent with their ground truth labels <pre3 lang="latex">\{y_i\}</pre3> will lead to minimum loss L; this process of finding the most suitable set of parameters W that will provide us with the minimum loss is called Optimization.
                     </p>
                     <h3>
-                        Optimisation
+                        Optimization
                     </h3>
                     <p>
-                        As explained in [<a href="#References">2</a>], we can employ the three elementary strategies given below as simple optimisation:
+                        As explained in [<a href="#References">2</a>], we can employ the three elementary strategies given below as simple optimization:
                         <ul>
                             <li>
                                 Random search<br>
@@ -187,11 +192,11 @@
                             </li>
                             <li>
                                 Random local search<br>
-                                We start out with any random W and generate random displacements dW to it and update only if the loss W + dW is lower than W. The analogy we can use would be a hiker trying to reach the bottom of the hilly terrain by proceeding to take a step in any direction as long as it leads down.
+                                We start with any random W and generate random displacements dW to it and update only if the loss W + dW is lower than W. The analogy we can use would be a hiker trying to reach the bottom of the hilly terrain by proceeding to take a step in any direction as long as it leads down.
                             </li>
                             <li>
                                 Along the Gradient<br>
-                                Here, we compute the best direction in which we should change our W weight vector such that it is mathematically guaranteed to be the direction of steepest descent. We compute the slope(gradient), which is the first-order derivative of the function at the current point, and move in the opposite direction of the slope by the computed amount. For our analogy, the hiker will traverse the direction which he feels is the steepest descent.
+                                Here, we compute the best direction in which we should change our W weight vector such that it is mathematically guaranteed to be the direction of steepest descent. We compute the slope (gradient), which is the first-order derivative of the function at the current point, and move in the opposite direction of the slope by the computed amount. For our analogy, the hiker will traverse the direction which he feels is the steepest descent.
                             </li>
                         </ul>
                     </p>
@@ -208,20 +213,20 @@
                         Types of Gradient Descent Algorithms
                     </h3>
                     <p>
-                        We will be looking deeper into three methods of gradient descent optimisation algorithm used such as Mini-batch gradient descent and its two extreme cases, the Stochastic Gradient Descent, and Batch Gradient Descent. With what we found from [<a href="#References">7</a>], they can be summarized as follows:
+                        We will be looking deeper into three methods of gradient descent optimization algorithm used such as Mini-batch gradient descent and its two extreme cases, the Stochastic Gradient Descent, and Batch Gradient Descent. With what we found from [<a href="#References">7</a>], they can be summarized as follows:
                     </p>
                     <ul>
                         <li>
                             Mini-batch Gradient Descent<br>
-                            In cases where the training data available is exceptionally large, we divide the training data into batches and compute the gradient over them instead of the whole. This method is computationally efficient and easily fits in memory. It also produces a more stable gradient descent convergence. But this stable error gradient may lead it into a local minima instead of the global minima, though the oscillations will help get out of them; also the segmented training set size shouldn't be too large to process in memory.
+                            In cases where the training data available is exceptionally large, we divide the training data into batches and compute the gradient over them instead of the whole. This method is computationally efficient and easily fits in memory. It also produces a more stable gradient descent convergence. But this stable error gradient may lead it into a local minimum instead of the global minima, though the oscillations will help get out of them; also the segmented training set size shouldn't be too large to process in memory.
                         </li>
                         <li>
                             Stochastic Gradient Descent (SGD)<br>
-                            SGD algorithm updates the parameters after evaluation of the loss function for each example instead of a mini-batch as given in the earlier method. If the training set contains n examples then the parameters are updated n times, i.e. one time after every single example is passed through. Due to the frequent numerous updates, the steps taken towards the minima of the loss function will have oscillations. This helps get the loss function out of the local minima; though the same will also cause it to be noisy and can point the gradient descent in other directions and hence cause it to take longer to converge to global minima.
+                            SGD algorithm updates the parameters after evaluation of the loss function for each example instead of a mini-batch as given in the earlier method. If the training set contains n examples then the parameters are updated n times, i.e. one time after every single example is passed through. Due to the frequent updates, the steps taken towards the minima of the loss function will have oscillations. This helps get the loss function out of the local minima; though the same will also cause it to be noisy and can point the gradient descent in other directions and hence cause it to take longer to converge to global minima.
                         </li>
                         <li>
                             Batch Gradient Descent (BGD)<br>
-                            In BGD the parameters are updated once after all the training examples have been evaluated. In this method, there are fewer oscillations and noisy steps are taken towards global minima since it updates parameters by computing the average of all training examples. It produces a more stable gradient descent convergence than the other two methods and is computationally much more efficient. But its lack of noisy steps can make it harder to get out of local minimas.
+                            In BGD the parameters are updated once after all the training examples have been evaluated. In this method, there are fewer oscillations and noisy steps are taken towards global minima since it updates parameters by computing the average of all training examples. It produces a more stable gradient descent convergence than the other two methods and is computationally much more efficient. But its lack of noisy steps can make it harder to get out of local minima.
                         </li>
                     </ul>
                 </div><!--.wrapper div-->
@@ -302,7 +307,7 @@
         <div class="bg3" style="background: black; padding: 10px; border-top: none;">
             <div class="details" style="padding: 0px;">
                 <div class="wrapper">
-                    <p style="color: white;">Project to be submitted in partial fulfillment of the requirements for the CS460 Course, NISER.</p>
+                    <p style="color: white;">Project to be submitted in partial fulfilment of the requirements for the CS460 Course, NISER.</p>
                 </div><!--.wrapper div-->
             </div><!--.details div-->
         </div><!--.bg3 div-->
