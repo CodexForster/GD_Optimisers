@@ -1,5 +1,5 @@
 /* 
-Project Name: Introducing Higher Moment Terms to Heavy-Ball Optimisation
+Project Name: Introducing Terms of Higher Moments in Heavy-Ball Optimisation
 Author: Danush Shekar and Harisankar K R
 */
 
@@ -73,7 +73,7 @@ nav{
 
 .topic h1{
 	font-size: 30px;
-	color: rgb(240, 240, 240);
+	color: white;
 }
 
 .content-area-top{
@@ -108,10 +108,11 @@ nav{
 }
 
 .bg3{
-
+	border-top: 3px solid black;
 }
 
 .bg4{
+	border-top: 3px solid black;
 	background: #eeeeee;
 }
 
@@ -121,7 +122,6 @@ nav{
 	position: relative;
 	width: 70%;;
 	padding: 25px;
-	border-top: 3px solid black;
 	display: flex;
 }
 
