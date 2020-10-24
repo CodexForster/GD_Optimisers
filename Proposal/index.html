@@ -66,7 +66,7 @@
                         Just like we discussed in class, there can be situations where we reach a saddle point in the loss function, there are high-order optimization algorithms to overcome this problem which involves complex calculations (like the inverse of large matrices). As explained in [<a href="#References">8</a>], compared to first-order optimization methods, high-order methods converge at a faster speed in which the curvature information makes the search direction more effective. High-order optimizations attract widespread attention but also face more challenges. Although the convergence of the algorithm can be guaranteed, the computational process is costly and thus rarely used for solving large machine learning problems. For example, computing and storing the full Hessian matrix takes O(n<sup>2</sup>) memory, which is infeasible for high-dimensional functions such as the loss functions of neural networks [<a href="#References">6</a>]. We will not get into high-order optimization, but what we seek to study is the effect of adding additional higher "moment" terms to the heavy-ball optimization. We use "higher moment terms" to avoid confusion with the already-in-use "high-order methods". We will also be diverting from the main problem if one gets into derivative-free optimization methods also. So, let us look into first-order optimization methods and find out where our project comes into the picture among these methods.
                     </p>
                     <p>
-                        First order methods involve methods like Gradient Descent (Normal, stochastic, batch/mini-batch), Nesterov Accelerated Gradient Descent, AdaGrad, and so on. Gradient Descent is explained in more detail in the Additional Resources section. More detailed review of first-order (and high-order) methods can be read at [<a href="#References">1</a>, <a href="#References">5</a>, <a href="#References">9</a>]. In NAG, the update is given by:
+                        First-order methods involve methods like Gradient Descent (Normal, stochastic, batch/mini-batch), Nesterov Accelerated Gradient Descent, AdaGrad, and so on. Gradient Descent is explained in more detail in the Additional Resources section. More detailed review of first-order (and high-order) methods can be read at [<a href="#References">1</a>, <a href="#References">5</a>, <a href="#References">9</a>]. In NAG, the update is given by:
                     </p>
                     <pre lang="latex">
                         x^{k+1}=x^{k} - a \nabla L\left(x^{k}+b\left(x^{k}-x^{k-1}\right)\right)+b\left(x^{k}-x^{k-1}\right)
@@ -147,6 +147,58 @@
                  </div><!--.wrapper div-->
             </div><!--.content-area div-->
         </div><!--.bg2 div-->
+        <div class="bg1">
+            <div class="content-area">
+                <div class="wrapper">
+                    <h2>
+                        Adam Optimisation
+                    </h2>
+                    <p>
+                        Adam optimisation or adaptive moment optimisation is an algorithm for first order gradient-based optimisation of stochastic objective functions based on the adaptive estimates of lower-order moments. The Adam optimisation method is very easy to implement, computationally efficient, having little memory requirements, invariant to diagonal rescaling and is well suited for problems that are large in terms of data and parameters. It combines the advantages of AdaGrad, which works well with sparse gradients, and RMSProp, which works well in on-line and non-stationary settings. The magnitudes of parameter updates is invariant to scaling of the gradient, its stepsizes are approximately bounded by the stepsize hyperparameter, it does not require a stationary object, it works with sparse gradients, and it naturally performs a form of step size annealing. The algorithm can be easily explained as follows.
+                    </p>
+                    <ul style="list-style-type:none;">
+                        <li><pre3 lang="latex">\textbf{Require}: \alpha</pre3> : Stepsize</li>
+                        <li><pre3 lang="latex">\textbf{Require}: \beta_{1}, \beta_{2} \in[0,1)</pre3> : Exponential decay rates</li>
+                        <li><pre3 lang="latex">\textbf{Require}: f(\theta)</pre3>: Stochastic objective function with parameters <pre3 lang="latex">\theta</pre3></li>
+                        <li><pre3 lang="latex">\textbf{Require}: \theta_{0}:</pre3>Initial parameter vector</li>
+                        <li>&emsp;<pre3 lang="latex">$\>$ $m_{0} \leftarrow 0$ </pre3>(Initialize 1<sup>st</sup> moment vector)</li>
+                        <li>&emsp;<pre3 lang="latex">\quad $v_{0} \leftarrow 0$</pre3> (Initialize 2<sup>nd</sup> moment vector)</li>
+                        <li>&emsp;<pre3 lang="latex">$t \leftarrow 0$</pre3> (Initialize timestep)</li>
+                        <li>&emsp;<pre3 lang="latex">\textbf{while } $\theta_{t}$</pre3> not converged do</li>
+                        <li>&emsp;&emsp; <pre3 lang="latex">$$t \leftarrow t+1$$</pre3></li>
+                        <li>&emsp;&emsp; <pre3 lang="latex">$g_{t} \leftarrow \nabla_{\theta} f_{t}\left(\theta_{t-1}\right)$</pre3> (Get gradients w.r.t. stochastic objective at timestep t)</li>
+                        <li>&emsp;&emsp; <pre3 lang="latex">$m_{t} \leftarrow \beta_{1} \cdot m_{t-1}+\left(1-\beta_{1}\right) \cdot g_{t}$</pre3> (Update biased first moment estimate)</li>
+                        <li>&emsp;&emsp; <pre3 lang="latex">v_{t} \leftarrow \beta_{2} \cdot v_{t-1}+\left(1-\beta_{2}\right) \cdot g_{t}^{2}$</pre3> (Update biased second raw moment estimate)</li>
+                        <li>&emsp;&emsp; <pre3 lang="latex">$\hat{m}_{t} \leftarrow m_{t} /\left(1-\beta_{1}^{t}\right)$</pre3> (Compute bias-corrected first moment estimate)</li>
+                        <li>&emsp;&emsp; <pre3 lang="latex">$\widehat{v}_{t} \leftarrow v_{t} /\left(1-\beta_{2}^{t}\right)$</pre3> (Compute bias-corrected second raw moment estimate)</li>
+                        <li>&emsp;&emsp; <pre3 lang="latex">$ \theta_{t} \leftarrow \theta_{t-1}-\alpha \cdot \hat{m}_{t} /\left(\sqrt{\widehat{v}_{t}}+\epsilon\right)</pre3>(Update parameters)</li>
+                        <li>&emsp; <pre3 lang="latex">\textbf{end while}</pre3></li>
+                        <li>&emsp; <pre3 lang="latex">\textbf{return} $\theta_{t}$</pre3> (Resulting parameters)</li>
+                    </ul>
+                    <p>
+                        g<sup>2</sup><sub>t</sub> indicates the element wise square g<sub>t</sub><pre3 lang="latex">\odot</pre3>g<sub>t</sub>. 
+                        <br>Good default settings for the tested machine learning problems are <pre4 lang="latex">\alpha</pre4> = 0.001, <pre3 lang="latex">\beta_1</pre3> = 0.9, <pre3 lang="latex">\beta_2</pre3> = 0.999 and <pre4 lang="latex">\epsilon</pre4> = 10<sup>-8</sup>.  All operations on vectors are element-wise.
+                        <br>To empirically evaluate adam optimisation method, the authors implemented Logistic Regression, NNs and CNNs in some problems. We will discuss the second two, because we look to implementing these 2 models.
+                    </p>
+                    <h3>
+                        Multilayer NN
+                    </h3>
+                    <p>
+                        <br>They used a neural network model with two fully connected hidden layers with 1000 hidden units each and ReLU activation with minibatch size of 128. They study different optimizers using the standard deterministic cross-entropy objective function with L2 weight decay on the parameters to prevent over-fitting. Stochastic regularization methods, such as dropout were an effective way to prevent overfitting and were used in practice due to their simplicity. The training of multilayer neural networks on MNIST images is shown below:
+                    </p>
+                    
+
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </div><!--.wrapper div-->
+            </div><!--.content-area div-->
+        </div><!--.bg1 div-->
         <div class="bg1">
             <div class="content-area">
                 <div class="wrapper">
@@ -311,6 +363,5 @@
                 </div><!--.wrapper div-->
             </div><!--.details div-->
         </div><!--.bg3 div-->
-
     </body>
 </html>
