@@ -27,7 +27,7 @@
                         Why Do We Need Optimization Methods?
                     </h2>
                     <p>
-                        Machine learning and Artificial Intelligence have become so popular that one can see its applications in almost every field one can think of. How to make these algorithms much more efficient and effective are crucial questions we would like to address. To give an idea of how complex even the simplest of problems can be, let us look at some numbers. The number of parameters in simple and good neural networks tackling the MNIST Database using a Convolutional Neural Network (CNN) are in millions. Even typical Neural Networks (NNs) tackling even simpler problems would have its number of parameters in orders of tens of thousands [<a href="#References">4</a>]. The gradient descent explanations one usually encounters online come with a parabola (Fig.1) or a contour representing the loss function with respect to 1 and 2 parameters respectively. We see that as the complexity of the problem increases, the number of calculations required (finding gradients) at each point also increases.
+                        Machine learning and Artificial Intelligence have become so popular that one can see its applications in almost every field one can think of. How to make these algorithms much more efficient and effective are crucial questions we would like to address. To give an idea of how complex even the simplest of problems can be, let us look at some numbers. The number of parameters in simple and good neural networks tackling the MNIST Database using a Convolutional Neural Network (CNN) are in millions. Even typical Neural Networks (NNs) tackling even simpler problems would have its number of parameters in orders of tens of thousands [<a href="#References">5</a>]. The gradient descent explanations one usually encounters online come with a parabola (Fig.1) or a contour representing the loss function with respect to 1 and 2 parameters respectively. We see that as the complexity of the problem increases, the number of calculations required (finding gradients) at each point also increases.
                     </p>
                     <figure>
                         <img src="Images/learning-rate.png" alt="Gradient" style="width: 500px;">
@@ -45,7 +45,7 @@
                         </figcaption>
                     </figure>
                     <p>
-                        As explained in [<a href="#References">8</a>], besides the learning rate, how to avoid the objective function being trapped in infinite numbers of the local minimum is a common challenge. The slope of a saddle point is positive in one direction and negative in another direction, and gradient values in all directions are zero. It is an important problem to escape from these points and algorithms like Nesterov Accelerated Gradient Descent (NAG) come into the picture. Although higher-order methods are more suited, we will see why they aren't used very often when we introduce them later on.
+                        As explained in [<a href="#References">9</a>], besides the learning rate, how to avoid the objective function being trapped in infinite numbers of the local minimum is a common challenge. The slope of a saddle point is positive in one direction and negative in another direction, and gradient values in all directions are zero. It is an important problem to escape from these points and algorithms like Nesterov Accelerated Gradient Descent (NAG) come into the picture. Although higher-order methods are more suited, we will see why they aren't used very often when we introduce them later on.
                     </p>
                     <p>
                         Now that we have seen why studies in optimization are important, let us get ourselves introduced to current optimization methods before stating our problem.
@@ -63,10 +63,10 @@
                         Popular optimization methods can be divided into three categories: first-order optimization methods (represented by the widely used stochastic gradient methods); high-order optimization methods; and heuristic derivative-free optimization methods.
                     </p>
                     <p>
-                        Just like we discussed in class, there can be situations where we reach a saddle point in the loss function, there are high-order optimization algorithms to overcome this problem which involves complex calculations (like the inverse of large matrices). As explained in [<a href="#References">8</a>], compared to first-order optimization methods, high-order methods converge at a faster speed in which the curvature information makes the search direction more effective. High-order optimizations attract widespread attention but also face more challenges. Although the convergence of the algorithm can be guaranteed, the computational process is costly and thus rarely used for solving large machine learning problems. For example, computing and storing the full Hessian matrix takes O(n<sup>2</sup>) memory, which is infeasible for high-dimensional functions such as the loss functions of neural networks [<a href="#References">6</a>]. We will not get into high-order optimization, but what we seek to study is the effect of adding additional higher "moment" terms to the heavy-ball optimization. We use "higher moment terms" to avoid confusion with the already-in-use "high-order methods". We will also be diverting from the main problem if one gets into derivative-free optimization methods also. So, let us look into first-order optimization methods and find out where our project comes into the picture among these methods.
+                        Just like we discussed in class, there can be situations where we reach a saddle point in the loss function, there are high-order optimization algorithms to overcome this problem which involves complex calculations (like the inverse of large matrices). As explained in [<a href="#References">9</a>], compared to first-order optimization methods, high-order methods converge at a faster speed in which the curvature information makes the search direction more effective. High-order optimizations attract widespread attention but also face more challenges. Although the convergence of the algorithm can be guaranteed, the computational process is costly and thus rarely used for solving large machine learning problems. For example, computing and storing the full Hessian matrix takes O(n<sup>2</sup>) memory, which is infeasible for high-dimensional functions such as the loss functions of neural networks [<a href="#References">8</a>]. We will not get into high-order optimization, but what we seek to study is the effect of adding additional higher "moment" terms to the heavy-ball optimization. We use "higher moment terms" to avoid confusion with the already-in-use "high-order methods". We will also be diverting from the main problem if one gets into derivative-free optimization methods also. So, let us look into first-order optimization methods and find out where our project comes into the picture among these methods.
                     </p>
                     <p>
-                        First-order methods involve methods like Gradient Descent (Normal, stochastic, batch/mini-batch), Nesterov Accelerated Gradient Descent, AdaGrad, and so on. Gradient Descent is explained in more detail in the Additional Resources section. More detailed review of first-order (and high-order) methods can be read at [<a href="#References">1</a>, <a href="#References">5</a>, <a href="#References">9</a>]. In NAG, the update is given by:
+                        First-order methods involve methods like Gradient Descent (Normal, stochastic, batch/mini-batch), Nesterov Accelerated Gradient Descent, AdaGrad, and so on. Gradient Descent is explained in more detail in the Additional Resources section. More detailed review of first-order (and high-order) methods can be read at [<a href="#References">1</a>, <a href="#References">7</a>, <a href="#References">10</a>]. In NAG, the update is given by:
                     </p>
                     <pre lang="latex">
                         x^{k+1}=x^{k} - a \nabla L\left(x^{k}+b\left(x^{k}-x^{k-1}\right)\right)+b\left(x^{k}-x^{k-1}\right)
@@ -93,7 +93,7 @@
                         Problem Statement and Objectives
                     </h2>
                     <p>
-                        We see that there is literature that delves into high-order methods which involve taking higher-order derivatives of the loss function to get more information of the curvature. But when one looks at the parameter-update equation of the HBO, one can realise that there could have been additional higher-order terms of the parameter differences (momentum terms). For instance, we had <pre2 lang="latex">b\left(x^{k}-x^{k-1}\right)</pre2>, but why not <pre2 lang="latex">b\left((x^{k})^3-(x^{k-1})^3\right)</pre2>, and terms with 5<sup>th</sup> power and so on (Why are we not considering even powers?). So this thought got us searching for the algorithms that do this, but according to [<a href="#References">8</a>], up until 2019, there has been no literature on the same. So our project would involve looking into such higher moment terms and look at how they affect the training process in terms of rate of convergence, probability of convergence, etc.
+                        We see that there is literature that delves into high-order methods which involve taking higher-order derivatives of the loss function to get more information of the curvature. But when one looks at the parameter-update equation of the HBO, one can realise that there could have been additional higher-order terms of the parameter differences (momentum terms). For instance, we had <pre2 lang="latex">b\left(x^{k}-x^{k-1}\right)</pre2>, but why not <pre2 lang="latex">b\left((x^{k})^3-(x^{k-1})^3\right)</pre2>, and terms with 5<sup>th</sup> power and so on (Why are we not considering even powers?). So this thought got us searching for the algorithms that do this, but according to [<a href="#References">9</a>], up until 2019, there has been no literature on the same. So our project would involve looking into such higher moment terms and look at how they affect the training process in terms of rate of convergence, probability of convergence, etc.
                     </p>
                     <p>
                         We look forward to studying the effects of including a set of terms to the HBO:
@@ -126,7 +126,7 @@
                         We will take up the benchmark problems people use to fare their optimization methods against others, but keeping in mind the computational resources we have access to, we might have to restrict our extent of testing to selected problems. Other than this, all tools needed to run the experiments are present and accessible (all that is needed is a computer with Python libraries and Google Colab access). We have not yet gone into the specifics, but we hope they have not conducted their experiments for too many iterations and large architectures/models. This stems from the fact that we only have access to a basic computer (8-core i7 8th Gen 2.6GHz, 8GB RAM and 1TB HDD) or a Colab alternative (2-core Xeon 2.2GHz, 13GB RAM, 33GB HDD and a max run-time of 12hrs only).
                     </p>
                     <p>
-                        Empirical tests will be done to compare HerBO with other methods. For now, we will look into performance based on terms of both the number of iterations and wall-clock time, but if any other means of comparison comes up, we can perform the same if time permits. As done in [<a href="#References">3</a>], we look to building NNs and study performance in the digit recognition problem (Using MNIST data). The same tests using CNNs would also be done. In our experiments, model choices for experiments will be made that are consistent with previous publications in the area. The architecture for these models are:
+                        Empirical tests will be done to compare HerBO with other methods. For now, we will look into performance based on terms of both the number of iterations and wall-clock time, but if any other means of comparison comes up, we can perform the same if time permits. As done in [<a href="#References">6</a>], we look to building NNs and study performance in the digit recognition problem (Using MNIST data). The same tests using CNNs would also be done. In our experiments, model choices for experiments will be made that are consistent with previous publications in the area. The architecture for these models are:
                         <ul>
                             <li>
                                 A Neural network model with two fully connected hidden layers with 1000 hidden units each and ReLU activation are used for this experiment with mini-batches of size 128.
@@ -142,6 +142,7 @@
                     <figure>
                         <img src="Images/work-plan.png" alt="Work Plan" style="width: 700px;">
                         <figcaption>
+                            Fig.3 - Work Plan
                         </figcaption>
                     </figure>
                  </div><!--.wrapper div-->
@@ -154,7 +155,7 @@
                         Adam Optimisation
                     </h2>
                     <p>
-                        Adam optimisation or adaptive moment optimisation is an algorithm for first order gradient-based optimisation of stochastic objective functions based on the adaptive estimates of lower-order moments. The Adam optimisation method is very easy to implement, computationally efficient, having little memory requirements, invariant to diagonal rescaling and is well suited for problems that are large in terms of data and parameters. It combines the advantages of AdaGrad, which works well with sparse gradients, and RMSProp, which works well in on-line and non-stationary settings. The magnitudes of parameter updates is invariant to scaling of the gradient, its stepsizes are approximately bounded by the stepsize hyperparameter, it does not require a stationary object, it works with sparse gradients, and it naturally performs a form of step size annealing. The algorithm can be easily explained as follows.
+                        As explained in [<a href="#References">6</a>], Adam optimisation or adaptive moment optimisation is an algorithm for first order gradient-based optimisation of stochastic objective functions based on the adaptive estimates of lower-order moments. The Adam optimisation method is very easy to implement, computationally efficient, having little memory requirements, invariant to diagonal rescaling and is well suited for problems that are large in terms of data and parameters. It combines the advantages of AdaGrad, which works well with sparse gradients, and RMSProp, which works well in on-line and non-stationary settings. The magnitudes of parameter updates is invariant to scaling of the gradient, its stepsizes are approximately bounded by the stepsize hyperparameter, it does not require a stationary object, it works with sparse gradients, and it naturally performs a form of step size annealing. The algorithm can be easily explained as follows.
                     </p>
                     <ul style="list-style-type:none;">
                         <li><pre3 lang="latex">\textbf{Require}: \alpha</pre3> : Stepsize</li>
@@ -169,7 +170,7 @@
                         <li>&emsp;&emsp; <pre3 lang="latex">$g_{t} \leftarrow \nabla_{\theta} f_{t}\left(\theta_{t-1}\right)$</pre3> (Get gradients w.r.t. stochastic objective at timestep t)</li>
                         <li>&emsp;&emsp; <pre3 lang="latex">$m_{t} \leftarrow \beta_{1} \cdot m_{t-1}+\left(1-\beta_{1}\right) \cdot g_{t}$</pre3> (Update biased first moment estimate)</li>
                         <li>&emsp;&emsp; <pre3 lang="latex">v_{t} \leftarrow \beta_{2} \cdot v_{t-1}+\left(1-\beta_{2}\right) \cdot g_{t}^{2}$</pre3> (Update biased second raw moment estimate)</li>
-                        <li>&emsp;&emsp; <pre3 lang="latex">$\hat{m}_{t} \leftarrow m_{t} /\left(1-\beta_{1}^{t}\right)$</pre3> (Compute bias-corrected first moment estimate)</li>
+                        <li>&emsp;&emsp; <a href="https://www.codecogs.com/eqnedit.php?latex=\widehat{m}_{t}&space;\leftarrow&space;m_{t}&space;/\left(1-\beta_{1}^{t}\right)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\widehat{m}_{t}&space;\leftarrow&space;m_{t}&space;/\left(1-\beta_{1}^{t}\right)" title="\widehat{m}_{t} \leftarrow m_{t} /\left(1-\beta_{1}^{t}\right)" /></a> (Compute bias-corrected first moment estimate)</li>
                         <li>&emsp;&emsp; <pre3 lang="latex">$\widehat{v}_{t} \leftarrow v_{t} /\left(1-\beta_{2}^{t}\right)$</pre3> (Compute bias-corrected second raw moment estimate)</li>
                         <li>&emsp;&emsp; <pre3 lang="latex">$ \theta_{t} \leftarrow \theta_{t-1}-\alpha \cdot \hat{m}_{t} /\left(\sqrt{\widehat{v}_{t}}+\epsilon\right)</pre3>(Update parameters)</li>
                         <li>&emsp; <pre3 lang="latex">\textbf{end while}</pre3></li>
@@ -184,21 +185,77 @@
                         Multilayer NN
                     </h3>
                     <p>
-                        <br>They used a neural network model with two fully connected hidden layers with 1000 hidden units each and ReLU activation with minibatch size of 128. They study different optimizers using the standard deterministic cross-entropy objective function with L2 weight decay on the parameters to prevent over-fitting. Stochastic regularization methods, such as dropout were an effective way to prevent overfitting and were used in practice due to their simplicity. The training of multilayer neural networks on MNIST images is shown below:
+                        <br>A neural network model with <b>two fully connected hidden layers</b> with <b>1000 hidden units</b> each and <b>ReLU activation</b> with <b>minibatch size of 128</b> was used to study different optimizers using the <b>standard deterministic cross-entropy objective function</b> with <b>L2 weight decay</b> on the parameters to prevent over-fitting. Stochastic regularization methods, such as dropout is an effective way to prevent overfitting and is often implemented in practice due to their simplicity. The training of multilayer neural networks (which use dropout stochastic regularization) on <b>MNIST images</b> is shown below.
                     </p>
-                    
-
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+                    <figure>
+                        <img src="Images/nn_adam_trainingcost.png" alt="Adam's Training cost NN" style="width: 400px;">
+                        <figcaption>
+                            Fig.4
+                        </figcaption>
+                    </figure>
+                    <h3>
+                        CNNs
+                    </h3>
+                    <p>
+                        The weight sharing in CNNs results in vastly different gradients in different layers. Our CNN architecture has three alternating stages of 5x5 convolution filters and 3x3 max pooling with stride of 2 that is followed by a fully connected layer of 1000 rectified linear hidden units (ReLU’s). The input image is pre-processed by whitening, and dropout noise is applied to the input layer and fully connected layer. The minibatch size is set to 128; we see Adam and SGD eventually converge considerably faster than Adagrad for CNNs despite Adam and Adagrad making rapid progress lowering the cost in the initial stage of the training as shown in the figure below.
+                    </p>
+                    <figure>
+                        <img src="Images/cnn_adam_trainingcost.png" alt="Adam's Training cost CNN" style="width: 400px;">
+                        <figcaption>
+                            Fig.5
+                        </figcaption>
+                    </figure>                    
                 </div><!--.wrapper div-->
             </div><!--.content-area div-->
         </div><!--.bg1 div-->
+        <div class="bg2">
+            <div class="content-area">
+                <div class="wrapper">
+                    <h2>
+                        AdaDelta Optimisation
+                    </h2>
+                    <p>
+                        As explained in [<a href="#References">11</a>], AdaDelta optimisation improves upon two main drawbacks of the AdaGrad method, namely the need for a manually selected global learning rate and continual decay of learning rates during training. In the AdaGrad optimisation method the denominator accumulates the squared gradients from each iteration starting at the beginning of training, this accumulated sum continues to grow throughout training, effectively reducing the learning rate on each dimension. After many iterations, this learning rate will become infinitesimally small, nearing zero. By using AdaDelta method this problem can be rectified.
+                    </p>
+                    <p>
+                        Here, instead of accumulating the sum of squared gradients over the total runtime, the duration of past gradients that are accumulated is restricted to a size w instead of t where t is the current iteration like used in AdaGrad. This will cause the windowed accumulation of the denominator of AdaGrad to not lead to infinity and instead become a local estimate using later gradients. Since the storing w previous squared gradients is inefficient, this method implements the accumulation as an exponentially decaying average of squared gradients. Assume at time t this running average is E[g<sup>2</sup>]<sub>t</sub> then it can be computed as: 
+                        <br> <a href="https://www.codecogs.com/eqnedit.php?latex=E\left[g^{2}\right]_{t}=\rho&space;E\left[g^{2}\right]_{t-1}&plus;(1-\rho)&space;g_{t}^{2}" target="_blank"><img style="margin-top: 10px" src="https://latex.codecogs.com/gif.latex?E\left[g^{2}\right]_{t}=\rho&space;E\left[g^{2}\right]_{t-1}&plus;(1-\rho)&space;g_{t}^{2}" title="E\left[g^{2}\right]_{t}=\rho E\left[g^{2}\right]_{t-1}+(1-\rho) g_{t}^{2}" /></a>
+                        <br> Here &rho; is a decay constant similar to that used in the momentum method. Since the square root of this quantity is required in the parameter updates, this effectively becomes the RMS value of previous squared gradients up to time t: 
+                        <br> <a href="https://www.codecogs.com/eqnedit.php?latex=\text{RMS}[g]_{t}=\sqrt{\left(&space;E\left[g^{2}\right]_{t}&plus;\epsilon&space;\right)}" target="_blank"><img style="margin-top: 10px" src="https://latex.codecogs.com/gif.latex?\text{RMS}[g]_{t}=\sqrt{\left(&space;E\left[g^{2}\right]_{t}&plus;\epsilon&space;\right)}" title="\text{RMS}[g]_{t}=\sqrt{\left( E\left[g^{2}\right]_{t}+\epsilon \right)}" /></a>
+                        <br> where a constant &straightepsilon; is added to better condition the denominator. The resulting parameter update is then:
+                        <br> <a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;x_{t}=-\left(\eta&space;/\left(R&space;M&space;S[g]_{t}\right)\right)^{*}&space;g_{t}" target="_blank"><img style="margin-top: 10px" src="https://latex.codecogs.com/gif.latex?\Delta&space;x_{t}=-\left(\eta&space;/\left(R&space;M&space;S[g]_{t}\right)\right)^{*}&space;g_{t}" title="\Delta x_{t}=-\left(\eta /\left(R M S[g]_{t}\right)\right)^{*} g_{t}" /></a>
+                    </p>
+                    <ul style="list-style-type:none;">
+                        <li><a href="https://www.codecogs.com/eqnedit.php?latex=\textbf{Require&space;}&space;\text{Decay&space;rate&space;}&space;\rho,&space;\text{Constant&space;}&space;\epsilon" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\textbf{Require&space;}&space;\text{Decay&space;rate&space;}&space;\rho,&space;\text{Constant&space;}&space;\epsilon" title="\textbf{Require } \text{Decay rate } \rho, \text{Constant } \epsilon" /></a></li>
+                        <li><a href="https://www.codecogs.com/eqnedit.php?latex=\textbf{Require&space;}&space;\text{Initial&space;parameter&space;}&space;x_1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\textbf{Require&space;}&space;\text{Initial&space;parameter&space;}&space;x_1" title="\textbf{Require } \text{Initial parameter } x_1" /></a></li>
+                        <li>&emsp;<a href="https://www.codecogs.com/eqnedit.php?latex=\text{Initialize&space;accumulation&space;variables&space;}&space;E\left[g^{2}\right]_{0}=0,&space;E\left[\Delta&space;x^{2}\right]_{0}=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\text{Initialize&space;accumulation&space;variables&space;}&space;E\left[g^{2}\right]_{0}=0,&space;E\left[\Delta&space;x^{2}\right]_{0}=0" title="\text{Initialize accumulation variables } E\left[g^{2}\right]_{0}=0, E\left[\Delta x^{2}\right]_{0}=0" /></a></li>
+                        <li>&emsp;<a href="https://www.codecogs.com/eqnedit.php?latex=\textbf{for&space;}t=1:&space;T&space;\textbf{&space;do:&space;}&space;\text{Loop&space;over&space;number&space;of&space;updates}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\textbf{for&space;}t=1:&space;T&space;\textbf{&space;do:&space;}&space;\text{Loop&space;over&space;number&space;of&space;updates}" title="\textbf{for }t=1: T \textbf{ do: } \text{Loop over number of updates}" /></a></li>
+                        <li>&emsp;&emsp;<a href="https://www.codecogs.com/eqnedit.php?latex=\begin{aligned}&space;&\text&space;{&space;Compute&space;Gradient:&space;}&space;g_{t}\\&space;&\text&space;{&space;Accumulate&space;Gradient:&space;}&space;E\left[g^{2}\right]_{t}=\rho&space;E\left[g^{2}\right]_{t-1}&plus;(1-\rho)&space;g_{t}^{2}\\&space;&\text&space;{&space;Compute&space;Update:&space;}&space;\Delta&space;x_{t}=-\frac{\operatorname{RMS}[\Delta&space;x]_{t-1}}{\operatorname{RMS}[g]&space;t}&space;g_{t}\\&space;&\text&space;{&space;Accumulate&space;Updates:&space;}&space;E\left[\Delta&space;x^{2}\right]_{t}=\rho&space;E\left[\Delta&space;x^{2}\right]_{t-1}&plus;(1-\rho)&space;\Delta&space;x_{t}^{2}\\&space;&\text&space;{&space;Apply&space;Update:&space;}&space;x_{t&plus;1}=x_{t}&plus;\Delta&space;x_{t}&space;\end{aligned}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{aligned}&space;&\text&space;{&space;Compute&space;Gradient:&space;}&space;g_{t}\\&space;&\text&space;{&space;Accumulate&space;Gradient:&space;}&space;E\left[g^{2}\right]_{t}=\rho&space;E\left[g^{2}\right]_{t-1}&plus;(1-\rho)&space;g_{t}^{2}\\&space;&\text&space;{&space;Compute&space;Update:&space;}&space;\Delta&space;x_{t}=-\frac{\operatorname{RMS}[\Delta&space;x]_{t-1}}{\operatorname{RMS}[g]&space;t}&space;g_{t}\\&space;&\text&space;{&space;Accumulate&space;Updates:&space;}&space;E\left[\Delta&space;x^{2}\right]_{t}=\rho&space;E\left[\Delta&space;x^{2}\right]_{t-1}&plus;(1-\rho)&space;\Delta&space;x_{t}^{2}\\&space;&\text&space;{&space;Apply&space;Update:&space;}&space;x_{t&plus;1}=x_{t}&plus;\Delta&space;x_{t}&space;\end{aligned}" title="\begin{aligned} &\text { Compute Gradient: } g_{t}\\ &\text { Accumulate Gradient: } E\left[g^{2}\right]_{t}=\rho E\left[g^{2}\right]_{t-1}+(1-\rho) g_{t}^{2}\\ &\text { Compute Update: } \Delta x_{t}=-\frac{\operatorname{RMS}[\Delta x]_{t-1}}{\operatorname{RMS}[g] t} g_{t}\\ &\text { Accumulate Updates: } E\left[\Delta x^{2}\right]_{t}=\rho E\left[\Delta x^{2}\right]_{t-1}+(1-\rho) \Delta x_{t}^{2}\\ &\text { Apply Update: } x_{t+1}=x_{t}+\Delta x_{t} \end{aligned}" /></a></li>
+                        <li>&emsp;<a href="https://www.codecogs.com/eqnedit.php?latex=\textbf{end&space;for}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\textbf{end&space;for}" title="\textbf{end for}" /></a></li>
+                    </ul>
+                    <p>
+                        The optimization method is compared against SGD, Momentum, AdaGrad, and AdaDelta in a supervised fashion to minimize the cross entropy objective between the network output and ground truth labels. A neural network is trained on the <b>MNIST handwritten digit classification task</b>. It is trained with <b>tanh nonlinearities</b> and <b>500 hidden units in the first layer</b> followed by <b>300 hidden units in the second layer</b>, with the final <b>softmax output layer</b> on top and <b>mini-batches of 100 images</b> per batch for <b>6 epochs</b> through the training set. Setting the hyperparameters to &straightepsilon; = 1e−6 and &rho; = 0.95 a test set error of 2.00% can be achieved [<a href="#References">11</a>].
+                    </p>
+                    <p>
+                        <a href="https://www.codecogs.com/eqnedit.php?latex=\begin{array}{|c|c|c|c|}&space;\hline&space;&&space;\text&space;{&space;SGD&space;}&space;&&space;\text&space;{&space;Momentum&space;}&space;&&space;\text&space;{&space;AdaGrad&space;}&space;\\&space;\hline&space;\epsilon=1&space;e^{0}&space;&&space;\mathbf{2&space;.&space;2&space;6&space;\%}&space;&&space;89.68&space;\%&space;&&space;43.76&space;\%&space;\\&space;\hline&space;\epsilon=1&space;e^{-1}&space;&&space;2.51&space;\%&space;&&space;\mathbf{2&space;.&space;0&space;3&space;\%}&space;&&space;2.82&space;\%&space;\\&space;\hline&space;\epsilon=1&space;e^{-2}&space;&&space;7.02&space;\%&space;&&space;2.68&space;\%&space;&&space;\mathbf{1&space;.&space;7&space;9}&space;\%&space;\\&space;\hline&space;\epsilon=1&space;e^{-3}&space;&&space;17.01&space;\%&space;&&space;6.98&space;\%&space;&&space;5.21&space;\%&space;\\&space;\hline&space;\epsilon=1&space;e^{-4}&space;&&space;58.10&space;\%&space;&&space;16.98&space;\%&space;&&space;12.59&space;\%&space;\\&space;\hline&space;\end{array}" target="_blank"><img style="  display: block; margin-left: auto; margin-right: auto;" src="https://latex.codecogs.com/gif.latex?\begin{array}{|c|c|c|c|}&space;\hline&space;&&space;\text&space;{&space;SGD&space;}&space;&&space;\text&space;{&space;Momentum&space;}&space;&&space;\text&space;{&space;AdaGrad&space;}&space;\\&space;\hline&space;\epsilon=1&space;e^{0}&space;&&space;\mathbf{2&space;.&space;2&space;6&space;\%}&space;&&space;89.68&space;\%&space;&&space;43.76&space;\%&space;\\&space;\hline&space;\epsilon=1&space;e^{-1}&space;&&space;2.51&space;\%&space;&&space;\mathbf{2&space;.&space;0&space;3&space;\%}&space;&&space;2.82&space;\%&space;\\&space;\hline&space;\epsilon=1&space;e^{-2}&space;&&space;7.02&space;\%&space;&&space;2.68&space;\%&space;&&space;\mathbf{1&space;.&space;7&space;9}&space;\%&space;\\&space;\hline&space;\epsilon=1&space;e^{-3}&space;&&space;17.01&space;\%&space;&&space;6.98&space;\%&space;&&space;5.21&space;\%&space;\\&space;\hline&space;\epsilon=1&space;e^{-4}&space;&&space;58.10&space;\%&space;&&space;16.98&space;\%&space;&&space;12.59&space;\%&space;\\&space;\hline&space;\end{array}" title="\begin{array}{|c|c|c|c|} \hline & \text { SGD } & \text { Momentum } & \text { AdaGrad } \\ \hline \epsilon=1 e^{0} & \mathbf{2 . 2 6 \%} & 89.68 \% & 43.76 \% \\ \hline \epsilon=1 e^{-1} & 2.51 \% & \mathbf{2 . 0 3 \%} & 2.82 \% \\ \hline \epsilon=1 e^{-2} & 7.02 \% & 2.68 \% & \mathbf{1 . 7 9} \% \\ \hline \epsilon=1 e^{-3} & 17.01 \% & 6.98 \% & 5.21 \% \\ \hline \epsilon=1 e^{-4} & 58.10 \% & 16.98 \% & 12.59 \% \\ \hline \end{array}" /></a>
+                        <br><br>The table above shows MNIST test error rates after 6 epochs of training for various hyperparameter settings using SGD, Momentum,and AdaGrad whereas the table below shows MNIST test error rate after 6 epochs for various hyperparameter settings using AdaDelta [<a href="#References">11</a>].
+                        <br><br><a href="https://www.codecogs.com/eqnedit.php?latex=\centering&space;\begin{array}{|c|c|c|c|}&space;\hline&space;&&space;\rho=0.9&space;&&space;\rho=0.95&space;&&space;\rho=0.99&space;\\&space;\hline&space;\epsilon=1&space;e^{-2}&space;&&space;2.59&space;\%&space;&&space;2.58&space;\%&space;&&space;2.32&space;\%&space;\\&space;\hline&space;\epsilon=1&space;e^{-4}&space;&&space;2.05&space;\%&space;&&space;1.99&space;\%&space;&&space;2.28&space;\%&space;\\&space;\hline&space;\epsilon=1&space;e^{-6}&space;&&space;1.90&space;\%&space;&&space;\mathbf{1&space;.&space;8&space;3&space;\%}&space;&&space;2.05&space;\%&space;\\&space;\hline&space;\epsilon=1&space;e^{-8}&space;&&space;2.29&space;\%&space;&&space;2.13&space;\%&space;&&space;2.00&space;\%&space;\\&space;\hline&space;\end{array}" target="_blank"><img style="  display: block; margin-left: auto; margin-right: auto;" src="https://latex.codecogs.com/gif.latex?\centering&space;\begin{array}{|c|c|c|c|}&space;\hline&space;&&space;\rho=0.9&space;&&space;\rho=0.95&space;&&space;\rho=0.99&space;\\&space;\hline&space;\epsilon=1&space;e^{-2}&space;&&space;2.59&space;\%&space;&&space;2.58&space;\%&space;&&space;2.32&space;\%&space;\\&space;\hline&space;\epsilon=1&space;e^{-4}&space;&&space;2.05&space;\%&space;&&space;1.99&space;\%&space;&&space;2.28&space;\%&space;\\&space;\hline&space;\epsilon=1&space;e^{-6}&space;&&space;1.90&space;\%&space;&&space;\mathbf{1&space;.&space;8&space;3&space;\%}&space;&&space;2.05&space;\%&space;\\&space;\hline&space;\epsilon=1&space;e^{-8}&space;&&space;2.29&space;\%&space;&&space;2.13&space;\%&space;&&space;2.00&space;\%&space;\\&space;\hline&space;\end{array}" title="\centering \begin{array}{|c|c|c|c|} \hline & \rho=0.9 & \rho=0.95 & \rho=0.99 \\ \hline \epsilon=1 e^{-2} & 2.59 \% & 2.58 \% & 2.32 \% \\ \hline \epsilon=1 e^{-4} & 2.05 \% & 1.99 \% & 2.28 \% \\ \hline \epsilon=1 e^{-6} & 1.90 \% & \mathbf{1 . 8 3 \%} & 2.05 \% \\ \hline \epsilon=1 e^{-8} & 2.29 \% & 2.13 \% & 2.00 \% \\ \hline \end{array}" /></a>
+                    </p>
+                    <p>
+                        To better understand various methods of convergence, the neural network is trained with 500 hidden units in the first layer, 300 hidden units in the second layer and rectified linear activation functions in both layers for 50 epochs. It is seen that rectified linear units perform more efficiently in practice than tanh, their non-saturating nature further tests each of the methods at coping with large variations of activations and gradients.
+                    </p>
+                    <figure>
+                        <img src="Images/nn_adadelta_traingcost.png" alt="AdaDelta's Training cost NN" style="width: 400px;">
+                        <figcaption>
+                            Fig.5 - Comparison of learning rate methods on MNIST digit classification for 50 epochs.
+                        </figcaption>
+                    </figure>
+                    <p>
+                        In the above figure SGD, Momentum, AdaGrad, and AdaDelta are compared in optimizing the test set errors. The SGD method has worst performance, but by adding the momentum term to it significantly improves performance. AdaGrad performs well for the first 10 epochs of training but it slows down considerably due to the accumulation of the denominator which continually increases. AdaDelta matches the fast initial convergence of AdaGrad while continuing to reduce the test error, converging near the best performance which occurs with Momentum.
+                    </p>                
+                </div><!--.wrapper div-->
+            </div><!--.content-area div-->
+        </div><!--.bg2 div-->
         <div class="bg1">
             <div class="content-area">
                 <div class="wrapper">
@@ -265,7 +322,7 @@
                         Types of Gradient Descent Algorithms
                     </h3>
                     <p>
-                        We will be looking deeper into three methods of gradient descent optimization algorithm used such as Mini-batch gradient descent and its two extreme cases, the Stochastic Gradient Descent, and Batch Gradient Descent. With what we found from [<a href="#References">7</a>], they can be summarized as follows:
+                        We will be looking deeper into three methods of gradient descent optimization algorithm used such as Mini-batch gradient descent and its two extreme cases, the Stochastic Gradient Descent, and Batch Gradient Descent. With what we found from [<a href="#References">4</a>], they can be summarized as follows:
                     </p>
                     <ul>
                         <li>
@@ -298,25 +355,31 @@
                             CS231n Convolutional Neural Networks for Visual Recognition. CS231n. (2020). Retrieved 3 October 2020, from <a href="https://cs231n.github.io/" target="blank">https://cs231n.github.io/</a>.
                         </li>
                         <li>
-                            Diederik P. Kingma, & Jimmy Ba. (2017). Adam: A Method for Stochastic Optimization.
+                            Duchi, J., Hazan, E. and Singer, Y., 2011. Adaptive Subgradient Methods for Online Learning and Stochastic Optimization. Journal of Machine Learning Research, 12, pp.2121-2159.
                         </li>
                         <li>
-                            Mallick, S., & Nayak, S. (2020). Number of Parameters and Tensor Sizes in a Convolutional Neural Network (CNN). Learn OpenCV. Retrieved 3 October 2020, from <a href="https://www.learnopencv.com/number-of-parameters-and-tensor-sizes-in-convolutional-neural-network/" target="blank">https://www.learnopencv.com/number-of-parameters-and-tensor-sizes-in-convolutional-neural-network/</a>.
+                            Kapil, D., 2020. Stochastic Vs Batch Gradient Descent. [online] Medium. Available at: <a href="https://medium.com/@divakar_239/stochastic-vs-batch-gradient-descent-8820568eada1" target="blank">https://medium.com/@divakar_239/stochastic-vs-batch-gradient-descent-8820568eada1</a> [Accessed 3 October 2020].
                         </li>
                         <li>
-                            Ruder, S. (2020). An overview of gradient descent optimization algorithms. Sebastian Ruder. Retrieved 3 October 2020, from <a href="https://ruder.io/optimizing-gradient-descent/" target="blank">https://ruder.io/optimizing-gradient-descent/</a>.
+                            Mallick, S. and Nayak, S., 2020. Number Of Parameters And Tensor Sizes In A Convolutional Neural Network (CNN). [online] Learn OpenCV. Available at: <a href="https://www.learnopencv.com/number-of-parameters-and-tensor-sizes-in-convolutional-neural-network/" target="blank">https://www.learnopencv.com/number-of-parameters-and-tensor-sizes-in-convolutional-neural-network/</a> [Accessed 3 October 2020].
                         </li>
                         <li>
-                            Stewart, M. (2020). Neural Network Optimization. Medium. Retrieved 3 October 2020, from <a href="https://towardsdatascience.com/neural-network-optimization-7ca72d4db3e0" target="blank">https://towardsdatascience.com/neural-network-optimization-7ca72d4db3e0</a>.
+                            P. Kingma, D. and Ba, J., 2015. Adam: A Method for Stochastic Optimization. In: 3rd International Conference for Learning Representations. San Diego.
                         </li>
                         <li>
-                            Stochastic vs Batch Gradient Descent. Medium. (2020). Retrieved 4 October 2020, from <a href="https://medium.com/@divakar_239/stochastic-vs-batch-gradient-descent-8820568eada1" target="blank">https://medium.com/@divakar_239/stochastic-vs-batch-gradient-descent-8820568eada1</a>.
+                            Ruder, S., 2020. An Overview Of Gradient Descent Optimization Algorithms. [online] Sebastian Ruder. Available at: <a href="https://ruder.io/optimizing-gradient-descent/" target="blank">https://ruder.io/optimizing-gradient-descent/</a> [Accessed 3 October 2020].
                         </li>
                         <li>
-                            Sun, S., Cao, Z., Zhu, H., & Zhao, J. (2020). A Survey of Optimization Methods From a Machine Learning Perspective. IEEE Transactions On Cybernetics, 50(8), 3668-3681. <a href="https://doi.org/10.1109/tcyb.2019.2950779" target="blank">https://doi.org/10.1109/tcyb.2019.2950779</a>.
+                            Stewart, M., 2020. Neural Network Optimization. [online] Medium. Available at: <a href="https://towardsdatascience.com/neural-network-optimization-7ca72d4db3e0" target="blank">https://towardsdatascience.com/neural-network-optimization-7ca72d4db3e0</a> [Accessed 3 October 2020].
                         </li>
                         <li>
-                            Wright, S. (2020). Optimization Methods for Machine Learning. Presentation, <a href="http://helper.ipam.ucla.edu/publications/elws1/elws1_13686.pdf" target="blank">http://helper.ipam.ucla.edu/publications/elws1/elws1_13686.pdf</a>.
+                            Sun, S., Cao, Z., Zhu, H. and Zhao, J., 2020. A Survey of Optimization Methods From a Machine Learning Perspective. IEEE Transactions on Cybernetics, 50(8), pp.3668-3681. <a href="https://doi.org/10.1109/tcyb.2019.2950779" target="blank">https://doi.org/10.1109/tcyb.2019.2950779</a>.
+                        </li>
+                        <li>
+                            Wright, S., 2020. Optimization Methods For Machine Learning. Presentation, <a href="http://helper.ipam.ucla.edu/publications/elws1/elws1_13686.pdf" target="blank">http://helper.ipam.ucla.edu/publications/elws1/elws1_13686.pdf</a>.
+                        </li>
+                        <li>
+                            Zeiler, M., 2020. ADADELTA: An Adaptive Learning Rate Method. [online] Available at: <a href="https://arxiv.org/abs/1212.5701" target="blank">https://arxiv.org/abs/1212.5701</a> [Accessed 29 October 2020].
                         </li>
                     </ol>
                  </div><!--.wrapper div-->
