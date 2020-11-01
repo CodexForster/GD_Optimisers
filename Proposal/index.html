@@ -155,7 +155,7 @@
                         Adam Optimisation
                     </h2>
                     <p>
-                        As explained in [<a href="#References">6</a>], Adam optimisation or adaptive moment optimisation is an algorithm for first order gradient-based optimisation of stochastic objective functions based on the adaptive estimates of lower-order moments. The Adam optimisation method is very easy to implement, computationally efficient, having little memory requirements, invariant to diagonal rescaling and is well suited for problems that are large in terms of data and parameters. It combines the advantages of AdaGrad, which works well with sparse gradients, and RMSProp, which works well in on-line and non-stationary settings. The magnitudes of parameter updates is invariant to scaling of the gradient, its stepsizes are approximately bounded by the stepsize hyperparameter, it does not require a stationary object, it works with sparse gradients, and it naturally performs a form of step size annealing. The algorithm can be easily explained as follows.
+                        As explained in [<a href="#References">6</a>], Adaptive moment optimisation is an algorithm for first order gradient-based optimisation of stochastic objective functions based on the adaptive estimates of lower-order moments. The Adam optimisation method is very easy to implement, computationally efficient, having little memory requirements, invariant to diagonal rescaling and is well suited for problems that are large in terms of data and parameters. This method has the combined advantages of AdaGrad optimisation, which works well with sparse gradients, and RMSProp method, which works well in on-line and non-stationary settings. In Adam optimisation, the magnitudes of parameter updates are invariant to scaling of the gradient, its stepsizes are approximately bounded by the stepsize hyperparameter, it does not require a stationary object, it works with sparse gradients, and it naturally performs a form of step size annealing. The algorithm is as follows.
                     </p>
                     <ul style="list-style-type:none;">
                         <li><pre3 lang="latex">\textbf{Require}: \alpha</pre3> : Stepsize</li>
@@ -179,7 +179,7 @@
                     <p>
                         g<sup>2</sup><sub>t</sub> indicates the element wise square g<sub>t</sub><pre3 lang="latex">\odot</pre3>g<sub>t</sub>. 
                         <br>Good default settings for the tested machine learning problems are <pre4 lang="latex">\alpha</pre4> = 0.001, <pre3 lang="latex">\beta_1</pre3> = 0.9, <pre3 lang="latex">\beta_2</pre3> = 0.999 and <pre4 lang="latex">\epsilon</pre4> = 10<sup>-8</sup>.  All operations on vectors are element-wise.
-                        <br>To empirically evaluate adam optimisation method, the authors implemented Logistic Regression, NNs and CNNs in some problems. We will discuss the second two, because we look to implementing these 2 models.
+                        <br>To empirically evaluate Adam optimisation method, the authors implemented Logistic Regression, NNs and CNNs in some problems. We will only be discussing the last two here, as we plan to implement only CNNs and NNs models.
                     </p>
                     <h3>
                         Multilayer NN
@@ -215,7 +215,7 @@
                         AdaDelta Optimisation
                     </h2>
                     <p>
-                        As explained in [<a href="#References">11</a>], AdaDelta optimisation improves upon two main drawbacks of the AdaGrad method, namely the need for a manually selected global learning rate and continual decay of learning rates during training. In the AdaGrad optimisation method the denominator accumulates the squared gradients from each iteration starting at the beginning of training, this accumulated sum continues to grow throughout training, effectively reducing the learning rate on each dimension. After many iterations, this learning rate will become infinitesimally small, nearing zero. By using AdaDelta method this problem can be rectified.
+                        As explained in [<a href="#References">11</a>], AdaDelta optimisation improves upon two main drawbacks of the AdaGrad method, namely the need for a manually selected global learning rate and continual decay of learning rates during training. In the AdaGrad optimisation method, the denominator accumulates the squared gradients from each iteration starting at the beginning of training, this accumulated sum continues to grow throughout training, effectively reducing the learning rate on each dimension. After many iterations, this learning rate will become infinitesimally small, nearing zero. By using AdaDelta method this problem can be rectified.
                     </p>
                     <p>
                         Here, instead of accumulating the sum of squared gradients over the total runtime, the duration of past gradients that are accumulated is restricted to a size w instead of t where t is the current iteration like used in AdaGrad. This will cause the windowed accumulation of the denominator of AdaGrad to not lead to infinity and instead become a local estimate using later gradients. Since the storing w previous squared gradients is inefficient, this method implements the accumulation as an exponentially decaying average of squared gradients. Assume at time t this running average is E[g<sup>2</sup>]<sub>t</sub> then it can be computed as: 
@@ -263,7 +263,7 @@
                         Is the Problem Worth Looking At?
                     </h2>
                     <p>
-                        We have limited knowledge of what the outcome of this project would come out to be, but we are hopeful for some positive results, if not, then we would know one direction where we need not search. That said, we need to take a step back and ask ourselves why are we doing this? Why do we need to look for different methods? Yes, these methods would help make our programs faster, saving hours and even days, and a lot more computational resources. But that truly is secondary, what we look to gaining from this project is to be able to understand are deep questions like how do these algorithms work? Why some work and why some don't? We hope to work with numerous algorithms, test them, play with them and thus at the end of it, also share our experience and knowledge we learnt with the class.
+                        We have limited knowledge of what the outcome of this project would come out to be, but we are hopeful for some positive results, if not, then we would know one direction where we need not search. That said, we need to take a step back and ask ourselves why we are doing this? Why do we need to look for different methods? Yes, these methods will help make our programs faster, saving hours or even days and significant computational resources. But that is only secondary; what we are seeking to gain from this project is to understand the much deeper questions like how do these algorithms work? Why some work and why some don't? We hope to work with numerous algorithms, test them, play with them and thus at the end of it, share our knowledge and experience with rest of the class.
                     </p>
                 </div><!--.wrapper div-->
             </div><!--.content-area div-->
@@ -281,10 +281,10 @@
                         Score and Loss Functions
                     </h3>
                     <p>
-                        The loss function is used to represent the agreements or disagreements between the predicted output scores and the ground truth labels, i.e. if the predicted scores deviate too much from the truth labels then the loss function will output a very large number. Or as explained in [<a href="#References">2</a>] in simpler terms, the loss function quantifies our unhappiness with predictions on the training set.
+                        In machine learning, scoring is the process of generating values based on a trained model, given some new input data. A function which helps us to map the raw data to class score is defined as Score function. When we use a model developed with training data to predict the output values for new data, we generally refer to it as 'scoring new data', rather than predicting.
                     </p>
                     <p>
-                        Similarly, the loss function is used to represent the agreements or disagreements between the predicted output scores and the ground truth labels, i.e. if the predicted scores deviate too much from the truth labels then the loss function will output a very large number. Or in layman terms, the loss function quantifies our unhappiness with predictions on the training set.
+                        The loss function is used to represent the agreements or disagreements between the predicted output scores and the ground truth labels, i.e. if the predicted scores deviate too much from the truth labels then the loss function will output a very large number. Or as explained in [<a href="#References">2</a>] in simpler terms, the loss function quantifies our unhappiness with predictions on the training set.
                     </p>
                     <p>
                         The value of parameters W that produced predictions for examples <pre3 lang="latex">\{x_i\}</pre3> consistent with their ground truth labels <pre3 lang="latex">\{y_i\}</pre3> will lead to minimum loss L; this process of finding the most suitable set of parameters W that will provide us with the minimum loss is called Optimization.
