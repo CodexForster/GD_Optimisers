@@ -3,8 +3,7 @@ In this project, we look forward to introduce higher "moment" terms in Heavy-Bal
 
 We look forward to make this project an exhaustive study by focussing on one or more benchmark problems (like MNIST, to compare with existing optimisation methods), include ablative tests on hyper-parameters (like learning rate, a, b) and parameters, and thus compare how our proposed change fares with existing methods.
 
-The "MINST_via_CNN.ipynb" file has the results for the CNN architecture similar to that used in the Adam paper, we ran a plain Stochastic Gradient Descent (SGD) for the MNIST problem. This was for 5 epochs, training size of 2000 images and testing size of 2000 images. The results also have the testing accuracy after every epoch. We used the Adam optimisation using SGD and Mini-Batch Gradient Descent (MBGD). We saw that rate of convergence for Adam MBGD > Adam SGD > Plain SGD.
-Accuracy results are all in the file.
+The "MINST_via_CNN.ipynb" file has the results for the CNN architecture similar to that used in the Adam paper, we multiple algorithms like Stochastic Gradient Descent (SGD), Mini-Batch Gradient Descent (MBGD), HerBo (for MBGD) and Adam (for MBGD and SGD) for the MNIST problem. This was for mulitple epochs, training size of 2560 images and testing size of 2560 images. The results also have the testing accuracy after every epoch. We see that rate of convergence for Adam MBGD > MBGD > HerBo MBGD > Plain SGD. All accuracy results are in the file. Please NOTE that there is an error that comes in the SGD part after the 8th epoch. We think that possibly occurred due to some parameter shooting to a large number, so for SGD, we have results only until 8 epochs.
 
 "comparision.py" plots the accuracy scores after training for certain number of epochs. This essentially summarises our results and the comparision of all algorithms we have tested with.
 
@@ -12,6 +11,8 @@ NOTE: The code in this repo is an improved version of what is present in https:/
 Until the final version comes out, if you feel the code in this repo is not understandable, see the other link for better understanding of what is going on, and then one can come back to see what we are trying to do here. 
 
 ## Recent Updates
+
+- Ran the same experiment on all for 10 epochs to obtain a better understanding of performance over epochs. (10/11/20)
 
 - Code the proposed HerBo optimisation method in a CNN to tackle the MNIST database. (08/11/20)
 
@@ -24,8 +25,6 @@ Until the final version comes out, if you feel the code in this repo is not unde
 - CNN with SGD for MNIST data was completed. (04/11/20)
 
 ## Upcoming Upgrades
- 
- - Run the same experiment for more number of epochs to obtain a better understanding of performance over epochs.
  
  - Run the same experiments for different MNIST training images, and for a larger dataset.
  
