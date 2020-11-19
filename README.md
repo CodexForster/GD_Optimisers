@@ -7,12 +7,14 @@ For our first step, we ran for a sample test and train test. The "MINST_via_CNN_
 
 For the second step, we tried to have a good training dataset ("MINST_via_CNN_shrinked_train.ipynb"). Since it is not feasible (computationally) for us to train for all 60,000 MNIST images, we wanted to make the training set consisit of 2560 images (batch size is 128, so training size has to be a multiple of that). So we calculated the percentage of examples in each class in the original MNIST training set, and maintainted the same values in our smaller training dataset. Eg: 11.24% of the original MNIST dataset were 1s. So 11.24% of 2560 images of our training set are also 1s. We selected 260 images from the MNIST testing dataset as our testing dataset. And we ran this for all the above stated algorithms. We have uploaded the codes for the same in files named as "MINST_via_CNN_shrinked_train.ipynb", it can run any of these algorithms and also has the code for making our training and testing datasets. the results for this step are in "comparision2.py"
 
-For the third step, we used the shrinked training dataset, but added the ability to perform cross validation. Each cross-validation fold had the training process go for 10 epochs. We conducted 5-fold cross-validation experiments for different values of the hyperparameter 'b' in the HerBo algorithm. Training dataset size was 2560 images and the testing dataset size was 640 images. Results and code for this will be uploaded soon.
+For the third step, we used the shrinked training dataset, but added the ability to perform cross validation. Each cross-validation fold had the training process go for 10 epochs. We conducted 5-fold cross-validation experiments for different values of the hyperparameter 'b' in the HerBo algorithm. Training dataset size was 2560 images and the testing dataset size was 640 images. Results and codes (in .ipynb files) for these configurations are in the "HerBo Outputs" folder. Accuracy plots of the same configurations are in "comparision3.py".
 
 NOTE: The code in this repo is an improved version of what is present in https://github.com/CNN-NISER.
 Until the final version comes out, if you feel the code in this repo is not understandable, see the other link for better understanding of what is going on, and then one can come back to see what we are trying to do here. 
 
 ## Recent Updates
+
+- We have begun to run tests for HerBo with 5-fold cross-validation using different hyper-parameters to see what values suit it. (18/11/20)
 
 - Run the same experiments for different MNIST training images, and for a more inclusive dataset. (12/11/20)
 
@@ -31,5 +33,3 @@ Until the final version comes out, if you feel the code in this repo is not unde
 ## Upcoming Upgrades
  
  - Use a closer CNN architecture to what was used in the Adam paper and perform all of the above tests to obtain acceptable results.
- 
- - Run tests for HerBo with 5-fold cross-validation using different learning rates and other hyper-parameters to see what values suit it.
