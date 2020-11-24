@@ -14,7 +14,7 @@ Until the final version comes out, if you feel the code in this repo is not unde
 
 ## Recent Updates
 
-- We have begun to run tests for HerBo with 5-fold cross-validation using different hyper-parameters to see what values suit it. (18/11/20)
+- Run tests for HerBo with 5-fold cross-validation using different hyper-parameters to see what values suit it. (23/11/20)
 
 - Run the same experiments for different MNIST training images, and for a more inclusive dataset. (12/11/20)
 
