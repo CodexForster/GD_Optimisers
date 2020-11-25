@@ -63,7 +63,6 @@ y74 = np.array([54.06, 55.78, 55.16, 54.84, 54.69, 53.75, 53.75, 52.28, 52.81, 5
 y75 = np.array([50.63, 52.34, 50.16, 49.69, 48.13, 47.03, 45.47, 44.84, 44.53, 44.06]) # Cross-validation fold 5
 y7 = (y71 + y72 + y73 + y74 + y75)/5
 
-
 # beta = 15
 y81 = np.array([61.41, 63.13, 63.75, 63.13, 62.5, 61.25, 60.47, 59.06, 58.28, 56.88]) # Cross-validation fold 1
 y82 = np.array([50.79, 56.25, 58.75, 59.84, 59.53, 58.91, 58.44, 59.06, 58.28, 57.97]) # Cross-validation fold 2
@@ -72,16 +71,24 @@ y84 = np.array([54.06, 55.78, 55.00, 55.00, 55.00, 54.22, 54.06, 53.44, 52.97, 5
 y85 = np.array([50.78, 52.34, 50.31, 49.84, 48.28, 46.88, 45.31, 44.84, 44.69, 44.38]) # Cross-validation fold 5
 y8 = (y81 + y82 + y83 + y84 + y85)/5
 
-# beta = 20
-y91 = np.array([61.41, 63.125, 64.06, 63.13, 62.81, 61.41]) # Cross-validation fold 1
-y9 = y91
+# beta = 20, crashes of 6 epochs
+y91 = np.array([61.41, 63.13, 64.06, 63.13, 62.81, 61.41]) # Cross-validation fold 1
+y92 = np.array([50.78, 56.41, 58.75, 59.69, 59.38, 59.38]) # Cross-validation fold 2
+y93 = np.array([53.13, 58.59, 60.00, 60.47, 60.47, 60.47]) # Cross-validation fold 3
+y94 = np.array([]) # Cross-validation fold 4
+y95 = np.array([]) # Cross-validation fold 5
+y9 = (y91 + y92 + y93 + y94 + y95)/5
 y9_crash = [61.41, 61.41, 61.41, 61.41, 61.41]
 x9_crash = [6, 7, 8, 9, 10]
 
-# beta = 25
+# beta = 25, crashes after 2 epochs
 y101 = np.array([61.56, 63.91]) # Cross-validation fold 1
-y10 = y101
-y10_crash = [63.91, 63.91, 63.91, 63.91, 63.91, 63.91, 63.91, 63.91, 63.91]
+y102 = np.array([51.09, 56.41]) # Cross-validation fold 2
+y103 = np.array([53.13, 59.22]) # Cross-validation fold 3
+y104 = np.array([54.53, 56.25]) # Cross-validation fold 4
+y105 = np.array([50.78, 53.13]) # Cross-validation fold 5
+y10 = (y101 + y102 + y103 + y104 + y105)/5
+y10_crash = [57.73, 57.73, 57.73, 57.73, 57.73, 57.73, 57.73, 57.73, 57.73]
 x10_crash = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 fig = plt.figure()
@@ -96,9 +103,12 @@ ax1.plot(x, y6, label='b = 10')
 ax1.plot(x, y7, label='b = 12.5')
 ax1.plot(x, y8, label='b = 15')
 ax1.plot(range(1,7), y9, label='b = 20')
-ax1.plot(x9_crash, y9_crash, 'r',label='Values shot up')
 ax1.plot(range(1,3), y10, label='b = 25')
+ax1.plot(x9_crash, y9_crash, 'r')
 ax1.plot(x10_crash, y10_crash, 'r')
+ax1.plot([2], [57.73], 'r', marker = 'o', label='Values shot up')
+ax1.plot([6], [61.41], 'r', marker = 'o')
 plt.legend(loc='best')
-plt.title('Comparision of accuracy for different b in HerBo((Training size, testing size) = (2560, 640)), minibatch size = 128')
+plt.title('Comparision Plot 3')
+#plt.title('Comparision of accuracy for different b in HerBo, (Training size, testing size) = (2560, 640), minibatch size = 128')
 plt.show()
