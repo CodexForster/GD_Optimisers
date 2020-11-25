@@ -77,7 +77,7 @@ y92 = np.array([50.78, 56.41, 58.75, 59.69, 59.38, 59.38]) # Cross-validation fo
 y93 = np.array([53.13, 58.59, 60.00, 60.47, 60.47, 60.47]) # Cross-validation fold 3
 y94 = np.array([]) # Cross-validation fold 4
 y95 = np.array([]) # Cross-validation fold 5
-y9 = (y91 + y92 + y93 + y94 + y95)/5
+y9 = (y91 + y92 + y93)/3
 y9_crash = [61.41, 61.41, 61.41, 61.41, 61.41]
 x9_crash = [6, 7, 8, 9, 10]
 
@@ -90,6 +90,15 @@ y105 = np.array([50.78, 53.13]) # Cross-validation fold 5
 y10 = (y101 + y102 + y103 + y104 + y105)/5
 y10_crash = [57.73, 57.73, 57.73, 57.73, 57.73, 57.73, 57.73, 57.73, 57.73]
 x10_crash = [2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Results for same train/test data 5-fold CV but using Vanilla MBGD
+ym1 = np.array([61.72, 63.59, 66.09, 66.09, 65.94, 65.94, 66.25, 66.41, 66.25, 66.41]) # Cross-validation fold 1
+ym2 = np.array([50.47, 56.56, 59.06, 60.16, 60.78, 60.94, 60.94, 64.47, 64.63, 60.94]) # Cross-validation fold 2
+ym3 = np.array([52.97, 58.44, 59.69, 60.94, 61.25, 61.72, 61.56, 61.88, 62.19, 62.50]) # Cross-validation fold 3
+ym4 = np.array([52.34, 55.00, 55.16, 55.16, 55.78, 55.63, 56.25, 56.41, 56.09, 55.94]) # Cross-validation fold 4
+ym5 = np.array([50.31, 52.81, 52.03, 52.50, 51.88, 52.34, 52.19, 52.03, 52.03, 52.34]) # Cross-validation fold 5
+ym = (ym1 + ym2 + ym3 + ym4 + ym5)/5
+
 
 fig = plt.figure()
 ax1 = fig.add_subplot(111)
@@ -104,6 +113,7 @@ ax1.plot(x, y7, label='b = 12.5')
 ax1.plot(x, y8, label='b = 15')
 ax1.plot(range(1,7), y9, label='b = 20')
 ax1.plot(range(1,3), y10, label='b = 25')
+ax1.plot(x, ym, label='Plain MBGD')
 ax1.plot(x9_crash, y9_crash, 'r')
 ax1.plot(x10_crash, y10_crash, 'r')
 ax1.plot([2], [57.73], 'r', marker = 'o', label='Values shot up')
