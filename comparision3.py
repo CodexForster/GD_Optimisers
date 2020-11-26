@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from cycler import cycler
 
 x = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
@@ -75,10 +76,10 @@ y8 = (y81 + y82 + y83 + y84 + y85)/5
 y91 = np.array([61.41, 63.13, 64.06, 63.13, 62.81, 61.41]) # Cross-validation fold 1
 y92 = np.array([50.78, 56.41, 58.75, 59.69, 59.38, 59.38]) # Cross-validation fold 2
 y93 = np.array([53.13, 58.59, 60.00, 60.47, 60.47, 60.47]) # Cross-validation fold 3
-y94 = np.array([]) # Cross-validation fold 4
-y95 = np.array([]) # Cross-validation fold 5
-y9 = (y91 + y92 + y93)/3
-y9_crash = [61.41, 61.41, 61.41, 61.41, 61.41]
+y94 = np.array([54.22, 55.63, 55.16, 55.47, 55.00, 54.69]) # Cross-validation fold 4
+y95 = np.array([50.94, 52.34, 50.47, 49.69, 48.28, 47.03]) # Cross-validation fold 5
+y9 = (y91 + y92 + y93 + y94 + y95)/5
+y9_crash = [56.60, 56.60, 56.60, 56.60, 56.60]
 x9_crash = [6, 7, 8, 9, 10]
 
 # beta = 25, crashes after 2 epochs
@@ -88,7 +89,7 @@ y103 = np.array([53.13, 59.22]) # Cross-validation fold 3
 y104 = np.array([54.53, 56.25]) # Cross-validation fold 4
 y105 = np.array([50.78, 53.13]) # Cross-validation fold 5
 y10 = (y101 + y102 + y103 + y104 + y105)/5
-y10_crash = [57.73, 57.73, 57.73, 57.73, 57.73, 57.73, 57.73, 57.73, 57.73]
+y10_crash = [57.78, 57.78, 57.78, 57.78, 57.78, 57.78, 57.78, 57.78, 57.78]
 x10_crash = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 # Results for same train/test data 5-fold CV but using Vanilla MBGD
@@ -99,25 +100,29 @@ ym4 = np.array([52.34, 55.00, 55.16, 55.16, 55.78, 55.63, 56.25, 56.41, 56.09, 5
 ym5 = np.array([50.31, 52.81, 52.03, 52.50, 51.88, 52.34, 52.19, 52.03, 52.03, 52.34]) # Cross-validation fold 5
 ym = (ym1 + ym2 + ym3 + ym4 + ym5)/5
 
-
+NUM_COLORS=12
+cm = plt.get_cmap('gist_rainbow')
+plt.rc('lines', linewidth=4)
+plt.rc('axes', prop_cycle=(cycler(color=[cm(1.5*i/NUM_COLORS) for i in range(NUM_COLORS)])))
 fig = plt.figure()
 ax1 = fig.add_subplot(111)
 plt.xlabel('Number of epochs')
 plt.ylabel('Cross-validated Testing accuracy (%)')
-ax1.plot(x, y2, label='b = 0.001')
-ax1.plot(x, y3, label='b = 0.01')
-ax1.plot(x, y4, label='b = 5')
-ax1.plot(x, y5, label='b = 7.5')
-ax1.plot(x, y6, label='b = 10')
-ax1.plot(x, y7, label='b = 12.5')
-ax1.plot(x, y8, label='b = 15')
+ax1.set_prop_cycle(color=[cm(1.5*i/NUM_COLORS) for i in range(NUM_COLORS)], lw=1.7*np.ones(NUM_COLORS))
+ax1.plot(x, ym, '#6D6D6D',label='Plain MBGD', linestyle='-.')
+ax1.plot(range(1,3), y10, 'k', label='b = 25', linestyle='-.')
 ax1.plot(range(1,7), y9, label='b = 20')
-ax1.plot(range(1,3), y10, label='b = 25')
-ax1.plot(x, ym, label='Plain MBGD')
-ax1.plot(x9_crash, y9_crash, 'r')
-ax1.plot(x10_crash, y10_crash, 'r')
-ax1.plot([2], [57.73], 'r', marker = 'o', label='Values shot up')
-ax1.plot([6], [61.41], 'r', marker = 'o')
+ax1.plot(x, y8, label='b = 15')
+ax1.plot(x, y7, label='b = 12.5')
+ax1.plot(x, y6, label='b = 10')
+ax1.plot(x, y5, label='b = 7.5')
+ax1.plot(x, y4, label='b = 5')
+ax1.plot(x, y3, label='b = 0.01')
+ax1.plot(x, y2, label='b = 0.001')
+ax1.plot(x9_crash, y9_crash, 'r', linestyle='-')
+ax1.plot(x10_crash, y10_crash, 'r', linestyle='-')
+ax1.plot([2], [57.78], 'r', marker = 'x', label='Values shot up')
+ax1.plot([6], [56.60], 'r', marker = 'x')
 plt.legend(loc='best')
 plt.title('Comparision Plot 3')
 #plt.title('Comparision of accuracy for different b in HerBo, (Training size, testing size) = (2560, 640), minibatch size = 128')
