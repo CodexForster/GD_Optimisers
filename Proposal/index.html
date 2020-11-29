@@ -306,9 +306,11 @@
                     <h2>
                         Adopted Methodology, Results and Inferences
                     </h2>
+                    <h3>Architecture, Computer Specs and Progress Outline</h3>
                     <p>
-                        We need to note that the program we have written is in its inital stages, and isn't optimised to run faster and take up lesser computations compared to the established libraries like Tensorflow and PyTorch. After giving thought into how much time it would take to test/train for a given architecture, we finally considered having a simpler version of the CNN architecture used in the Adam paper for the MNIST problem.
-                        For all our tests we used 1 convolutional layer, 1 max-pooling layer and 1 fully-connected layer. The convolutional layer had 10 filters with a receptive field of 5 units and convolving at a stride length of 1 unit. The pooling layer's stride length was set to 2 units. There were 10 nodes in the fully connected layer. We used a learning rate of 0.05. We used the ReLU function as our activation function and a cross-entropy loss (Softmax Classifier) as our loss function.                         
+                        We need to note that the program we have written is in its inital stages, and isn't optimised to run faster and take up lesser computations compared to the established libraries like Tensorflow and PyTorch. After giving thought into how much time it would take to test/train for a given architecture, we considered having a simpler version of the CNN architecture used in the Adam paper for the MNIST problem.
+                        For all our tests we used 1 convolutional layer, 1 max-pooling layer and 1 fully-connected layer. The convolutional layer had 10 filters with a receptive field of 5 units and convolving at a stride length of 1 unit. The pooling layer's stride length was set to 2 units. There were 10 nodes in the fully connected layer. We used a learning rate of 0.05. We used the ReLU function as our activation function and a cross-entropy loss (Softmax Classifier) as our loss function.
+                        We used Google Colab to run all our codes and the specs of this computer is a 2-core Xeon 2.2GHz processor, a 13GB RAM and a 33GB HDD.
                     </p>
                     <figure>
                         <img src="Images/timeline.png" alt="Project Timeline" style="width: 1100px;">
@@ -316,22 +318,25 @@
                             Fig.7
                         </figcaption>
                     </figure>
+                    <h3>Class I of Experiments, Subsequent Results</h3>
                     <p>
                         The first 2 weeks involved setting up all algorithms and running once for a sample dataset to see if everything is working. This sample dataset was for 5 epochs, 2560 training images and 2560 testing images. We realised that we needed to set up the number of epochs to 10 to get a better idea of convergence to a minima. The results of the same are in Fig.8.  Note that since we are using mini-batch size of 128 in some of the algorithms, we set the training size to a multiple of 128 for all runs. The "MINST_via_CNN_old_train_test.ipynb" file in our GitHub repo contains the source code and the results for multiple algorithms, namely Stochastic Gradient Descent (SGD), Mini-Batch Gradient Descent (MBGD), HerBo (for MBGD) and Adam (for MBGD and SGD) for the MNIST problem.
-                        The results also have the testing accuracy after every epoch. We see that rate of convergence for Adam MBGD > MBGD > HerBo MBGD > Plain SGD. Please NOTE that there is an error that comes in the SGD part after the 8th epoch. This occurred due to some parameter shooting to a large number, so for SGD, we have results only until 8 epochs.
+                        The results also have the testing accuracy after every epoch. We see that the rate of convergence for Adam MBGD > MBGD > HerBo MBGD > Plain SGD. Please NOTE that there is an error that comes in the SGD part after the 8th epoch. This occurred due to some parameter shooting to a large number, so for SGD, we have results only until 8 epochs.
                     </p>
                     <figure>
-                        <img src="Images/comparision1.png" alt="HerBo Comparision 1" style="width: 600px;">
+                        <img src="Images/comparision1.png" alt="HerBo Comparision 1" style="width: 600px; border-radius: 40px;">
                         <figcaption>
                             Fig.8 - Comparision of HerBo with other existing algorithms (We used a training and testing size of 2560 images)
                         </figcaption>
                     </figure>
+                    <h3>Class II of Experiments, Subsequent Results</h3>
                     <p>
-                        Note that each run (10 epochs) took about 2-3 hours, which means that every line corresponding to an algorithm in Fig.8 took 2-3 hours to produce. Since it is not feasible (computationally) for us to train for all 60,000 MNIST images, for the next step, we wanted to make the training set consisit of 2560 images. But we had to choose a training set that had an equal distribution of all numbers. To tackle this, We calculated the percentage of examples in each class in the original MNIST training set, and maintainted the same values in our smaller training dataset. Eg: 11.24% of the original MNIST dataset were 1s. So 11.24% of 2560 images of our training set are also 1s. For the testing set, we selected 260 images from the MNIST testing dataset. We will refer to this training (+ testing) dataset as the inclusive dataset. And we ran this for all the algorithms we are interested in. The source codes and results of which are in the file named "MINST_via_CNN_shrinked_train.ipynb" in our GitHub repo.
+                        Each run (10 epochs) of the previous class of experiments took about 2-3 hours to complete which means that every curve corresponding to an algorithm in Fig.8 took 2-3 hours to produce. We see that it is not computationally feasible for us to train with all 60,000 MNIST images, 2560 images is all we can handle, but we still need to select a training dataset that has a good representation of all classes and not account to any under/over-generalisation. For the next step, we calculated the percentage of examples in each class in the original MNIST training set, and maintainted the same values in our smaller training dataset. Eg: 11.24% of the original MNIST dataset were 1s. So 11.24% of 2560 images of our training set are also 1s. For the testing set, we selected 260 images from the MNIST testing dataset. We will refer to this training (+ testing) dataset as the inclusive dataset. And we ran this for all the algorithms we are interested in. The source codes and results of which are in the file named "MINST_via_CNN_shrinked_train.ipynb" in our GitHub repo.
                         The results after this process is as shown in Fig.9.
+                        One could ask why not 10% from each class in our small training dataset? Which is also a valid argument but all papers are based on the official 60,000 training images but the original datset does not have an equal number of images for each class. Since the benchmark training dataset is the same, we thought it would make more sense to keep the same distribution and not an equal one.
                     </p>
                     <figure>
-                        <img src="Images/comparision2.png" alt="HerBo Comparision 2" style="width: 600px;">
+                        <img src="Images/comparision2.png" alt="HerBo Comparision 2" style="width: 600px; border-radius: 40px;">
                         <figcaption>
                             Fig.9 - Comparision of HerBo with other existing algorithms (For the inclusive training and testing dataset)
                         </figcaption>
@@ -339,27 +344,35 @@
                     <p>
                         Note that each run (10 epochs) took about 2-3 hours just like the previous step. We see that HerBo does perform similar to MBGD, and better than the other algorithms. We also need to keep in mind the drop in accuracy in the later epoch numbers. We will get back to this after discussing our next result.
                     </p>
+                    <h3>Class III of Experiments, Subsequent Results</h3>
                     <p>
                         After a discussion with Dr. Subhankar, we decided to drop the ablative tests that were to be performed in week 5 and decided to go ahead with running better tests by performing a 5-fold cross validation on a dataset of size 3200 images. This dataset was made similar to how we made the inclusive dataset. Each fold had the training process run for 10 epochs.
                     </p>
                     <figure>
-                        <img src="Images/meme1.jpg" alt="HerBo Meme 1" style="width: 400px;">
+                        <img src="Images/meme1.jpg" alt="HerBo Meme 1" style="width: 400px; border-radius: 40px;">
                         <figcaption>
-                            
+                            (Image Source: <a href="https://imgflip.com/memegenerator" target="blank">imgflip</a>)
                         </figcaption>
                     </figure>
                     <p>
-                        We conducted 5-fold cross-validation experiments for different values of the hyperparameter 'b' in the HerBo algorithm. We also ran the cross-validation algorithm on MBGD, this combined with Fig.9 would be able to give us a good idea of how HerBo works compared to other algorithms. The training dataset size was 2560 images, the testing dataset size was 640 images and the mini-batch size was set to 128. Results and codes for these configurations are in the "HerBo Outputs" folder in our GitHub repo. There are some files with part1 and part2 in their name, these are 2 parts of the same file. If the file has 2 parts, part1 was the file that was running and abruptly got ended due to long runtime. We had to run the rest again which is in part2. The obtained accuracy results are as shown in Fig.10.
+                        We conducted 5-fold cross-validation experiments for different values of the hyperparameter 'b' in the HerBo algorithm for moment 3 terms (i.e <img src="https://latex.codecogs.com/gif.latex?b\left((x^{k})^3-(x^{k-1})^3\right)" style="margin-bottom:-5px" title="b\left((x^{k})^3-(x^{k-1})^3\right)" />). We also ran the cross-validation algorithm on MBGD, this combined with Fig.9 would be able to give us a good idea of how HerBo works compared to other algorithms. The training dataset size was 2560 images, the testing dataset size was 640 images and the mini-batch size was set to 128. Results and codes for these configurations are in the "HerBo Outputs" folder in our GitHub repo. There are some files with part1 and part2 in their name, these are 2 parts of the same file. If the file has 2 parts, part1 was the file that was running and abruptly got ended due to long runtime. We had to run the rest again which is in part2. The obtained accuracy results are as shown in Fig.10.
                     </p>
                     <p>
-                        Please note that one run of a 5-fold cross validation (training of 10 epochs for each fold), took about 12-13 hours to finishs! By 20 November we culminated the results we had obtained until then, and the plots obtained for different b values were all exactly the same. After going into every line of the code, we found a mistake that is trivial, but yet non-trivial at the same time. We had to go to the level of how array copies are made in Python (involving shallow and deep copies) to correct the mistake we made.
+                        Please note that one run of a 5-fold cross validation (training of 10 epochs for each fold), took about 12-13 hours to finish! By 20 November we culminated the results we had obtained until then, and the plots obtained for different b values were all exactly the same. After going into every line of the code, we found a mistake that is trivial, but yet non-trivial at the same time. We had to go to the level of how array copies are made in Python (involving shallow and deep copies) to correct the mistake we made.
                     </p>
                     <figure>
-                        <img src="Images/comparision3.png" alt="HerBo Comparision 3" style="width: 1100px;">
+                        <img src="Images/comparision3.png" alt="HerBo Comparision 3" style="width: 1100px; border-radius: 40px;">
                         <figcaption>
                             Fig.10 - Comparision of accuracy for different b-values in HerBo
                         </figcaption>
                     </figure>
+                    <h3>Inferences and Final Remarks</h3>
+                    All the results that we have obtained are for experiments conducted on the same grounds. The weight initialisations were same (using random seed), the train/test data were the same, etc. So different models in any one of the 3 plots are all on the same ground of comparision. As we evolved through experiments, we can see that efforts were put into making it a wholesome and extensive set of experiments.
+                    Fig.9 essentially compares HerBo with other pre-existing/established algorithms. We see that our model is similar to MBGD but accuracy starts to drop towards the final epochs. But, HerBo still does much better in the early epochs compared to other algorithms. When we say this, we also need to keep in mind that the data selected might be good, but running it through a cross-validation process would make it more concrete. We did not have time to do cross-validation over all algorithms, but we did it for different b-values of HerBo and MBGD. Since we know how HerBo and MBGD compares with Adam, SGD and Adam + SGD, running for MBGD alone and compare it to different b-values would give us a rough idea of how our model would perform compared to other algorithms. This way we would save the time we'd need to run cross-validation on other algorithms.
+                    As we see in Fig.10, MBGD crushed our hopes to make our algorithm work because we see that accuracy of our algorithm drop after the first few epochs for all values of b we have run tests for. But a very important point to observe is that, after the first epoch our algorithm has a higher accuracy than MBGD for high b-values. So the only practical use we see, our algorithm has, is when one needs a boost of a few percent in accuracy in some epoch. One can use our algorithm (for one epoch) for a headstart and then switch to another algorithm for a stable convergence to the minima.
+                    <p>
+                        For the given timeframe, we were not able to run experiments for different powers and higher moments, we did not experiment on Neural Networks too. And yes there still might be other areas of experiments we didn't cover, but for the values and moment orders we covered, our model did not work, fully. As explained, it is handicapped to a one-off use. There are chances (but bleak) that this algorithm would work in some other settings or some sub-class of problems, we hope someone is able to figure it out. Unlike Adam, SGD, MBGD, which work on almost all classes of problems and settings, HerBo did not. But we did learn a lot of things through this process and we thank Dr. Subhankar Mishra for giving us the opportunity and time to do so. We also thank Sahel Iqbal and Chinmay Routray for allowing us to use parts of the code they contributed to. We would like to thank the CS460 class of 2020 for their time to hear our story of this journey.
+                    </p>
                  </div><!--.wrapper div-->
             </div><!--.content-area div-->
         </div><!--.bg2 div-->
