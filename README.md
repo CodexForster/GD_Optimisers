@@ -33,5 +33,7 @@ Until the final version comes out, if you feel the code in this repo is not unde
 - CNN with SGD for MNIST data was completed. (04/11/20)
 
 ## Upcoming Upgrades
+
+ - Find suitable values for the hyperparamteres, for training over the entire MNIST database.
  
  - Use a closer CNN architecture to what was used in the Adam paper and perform all of the above tests to obtain acceptable results.
